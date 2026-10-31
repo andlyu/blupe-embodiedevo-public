@@ -1,0 +1,5 @@
+import {sqliteTable,text,integer} from 'drizzle-orm/sqlite-core';
+export const campaigns=sqliteTable('campaigns',{id:text('id').primaryKey(),owner:text('owner').notNull(),name:text('name').notNull(),config:text('config').notNull(),state:text('state').notNull(),worker:text('worker'),artifact:text('artifact'),created:integer('created').notNull(),updated:integer('updated').notNull()});
+export const jobs=sqliteTable('jobs',{id:text('id').primaryKey(),campaign:text('campaign').notNull(),kind:text('kind').notNull(),state:text('state').notNull(),worker:text('worker'),report:text('report'),created:integer('created').notNull(),updated:integer('updated').notNull()});
+export const artifacts=sqliteTable('artifacts',{id:text('id').primaryKey(),campaign:text('campaign').notNull(),sha256:text('sha256').notNull(),manifest:text('manifest').notNull(),created:integer('created').notNull()});
+export const workers=sqliteTable('workers',{id:text('id').primaryKey(),seen:integer('seen').notNull(),version:text('version').notNull()});

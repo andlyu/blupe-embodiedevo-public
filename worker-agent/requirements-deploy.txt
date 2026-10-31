@@ -1,0 +1,2 @@
+# Download tooling is isolated from the native simulator dependency constraints.
+huggingface-hub==2.4.0

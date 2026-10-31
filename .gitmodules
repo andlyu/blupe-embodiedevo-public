@@ -1,0 +1,6 @@
+[submodule "upstream/blupe-remote-yam"]
+	path = upstream/blupe-remote-yam
+	url = https://github.com/andlyu/blupe-remote-yam.git
+[submodule "upstream/EmbodiedEvo"]
+	path = upstream/EmbodiedEvo
+	url = https://github.com/Einsia/EmbodiedEvo.git

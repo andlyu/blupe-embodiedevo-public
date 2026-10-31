@@ -1,0 +1,24 @@
+{
+  "schema": "blupe-embodiedevo-runtime-v1",
+  "robodojo": "f57e1633ffed59761bc8e568cfe7530c4b33381c",
+  "submodules": {
+    "XPolicyLab": "5d0be1499634d3176258c8f2e31f5fe816497b0a",
+    "third_party/IsaacLab": "afca7b09d60d8beb9c1cb28b43066499940b969b",
+    "third_party/curobo": "d17b54ce32cba095c0b000c4c58777075d11de0e"
+  },
+  "assets": {
+    "repository": "RoboDojo-Benchmark/RoboDojo",
+    "revision": "63fcc045f2e974902eb7800d29de48004cf86016",
+    "pattern": "Assets/**",
+    "files": 15365,
+    "bytes": 41269513111
+  },
+  "miniforge": {
+    "url": "https://github.com/conda-forge/miniforge/releases/download/26.9.4-1/Miniforge3-26.9.4-1-Linux-x86_64.sh",
+    "sha256": "571b410272cc434f28bc6c5c49ca8ffd4a4d1bcba9f57f1b6baccdb46446cfcc"
+  },
+  "isaacsim": "5.1.0",
+  "codex": "0.159.2",
+  "required_driver_branch": 580,
+  "qualified": false
+}

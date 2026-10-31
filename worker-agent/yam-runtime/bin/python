@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -euo pipefail
+agent_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+exec "${EMBODIEDEVO_YAM_PYTHON:?Physical runtime interpreter is required}" "$agent_root/yam_entry.py" "$@"
