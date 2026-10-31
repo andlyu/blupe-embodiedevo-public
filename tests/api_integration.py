@@ -49,8 +49,9 @@ expect(status == 410, 'simulator campaign creation is disabled')
 status, _ = call('/api/jobs', {}, signed_in=False)
 expect(status == 410, 'simulator campaign jobs are disabled')
 
-# No identity or physical work is submitted by this check. Invalid requests
-# fail before station readiness is queried or a YAM job is created.
+# No physical work is submitted by this check. Invalid requests fail before
+# station readiness is queried. A valid-shaped request must pass validation,
+# then stop at the disconnected local worker gate before a YAM job is created.
 status, _ = call('/api/direct-yam', {'skill_id': 'not-a-pinned-skill',
                                      'task': 'fixture task'}, signed_in=False)
 expect(status == 400, 'public direct YAM rejects skills absent from the pinned library')
@@ -62,6 +63,11 @@ base = {'skill_id': 'stack_blocks', 'task': 'Stack the blue cube on the orange c
                      'identity_confirmed': False}}
 status, value = call('/api/direct-yam', base, signed_in=False)
 expect(status == 400, 'public direct YAM still requires confirmed runner identity')
+
+confirmed = {**base, 'hardware': {**base['hardware'], 'identity_confirmed': True}}
+status, value = call('/api/direct-yam', confirmed, signed_in=False)
+expect(status == 409 and 'YAM compute worker is disconnected' in value.get('error', ''),
+       'valid YAM input passes validation and is rejected before insertion without a local worker')
 
 status, value = call('/api/worker/probe', {'worker': 'local-api-probe'}, token=TOKEN)
 expect(status in (401, 503),
