@@ -18,6 +18,24 @@ from skill_library import download_skill_set,skill_manifest
 ORIGIN='https://yam-session-api.n5hthc3gj4cqy.us-east-1.cs.amazonlightsail.com'
 ROBOT='yam-1'
 
+def physical_yam_session_env(_gpu=None,_backend=None):
+    """Use the host's native MuJoCo runtime for the physical YAM adapter.
+
+    The shared session runner normally forces EGL for RoboDojo rendering.
+    This adapter reads real YAM cameras and uses MuJoCo only for kinematics
+    and collision checks, so carrying EGL into the child breaks macOS workers
+    before the physical environment can announce readiness.
+    """
+    from orchestrator.host_policy import require_allowed
+    require_allowed('local')
+    env=os.environ.copy()
+    for name in ('MUJOCO_GL','PYOPENGL_PLATFORM','MUJOCO_EGL_DEVICE_ID','VK_ICD_FILENAMES'):
+        env.pop(name,None)
+    env['CUDA_VISIBLE_DEVICES']=''
+    for name in ('OMP_NUM_THREADS','MKL_NUM_THREADS','OPENBLAS_NUM_THREADS','NUMEXPR_NUM_THREADS'):
+        env[name]='1'
+    return env
+
 class AttributedSessionAPI:
     """Add the confirmed human runner to the normal YAM session creation call."""
     def __init__(self,api,runner_name,email):
@@ -172,7 +190,8 @@ def run(job,original,trial,root):
                                 recording_root=trial/'controller',share_conversation=False)
     recorder=LiveCameraRecorder(ORIGIN,ROBOT,trial/'live-camera-frames',fps=2)
     previous=session_runner.run_replay
-    stage=trial/'session'
+    previous_sim_env=session_runner.sim_env
+    stage=trial/(time.strftime('%Y%m%d%H%M')+'_session')
     initial=time.time();native=None
     def progress():
         status=controller.status()
@@ -222,6 +241,7 @@ def run(job,original,trial,root):
             EMBODIEDEVO_YAM_PYTHON=sys.executable)
         os.environ.pop('EMBODIEDEVO_ROBODOJO_RUNTIME_PROFILE',None)
         session_runner.run_replay=no_physical_replay
+        session_runner.sim_env=physical_yam_session_env
         native=session_runner.run_episode(cfg,stage,trial,phase='test',seed=0,
                     seconds=available,harness=trial/'frozen_harness',gpu=None)
         if hashes(trial/'frozen_harness')!=source or (original is not None and hashes(original/'frozen_harness')!=source):
@@ -239,6 +259,7 @@ def run(job,original,trial,root):
         raise
     finally:
         session_runner.run_replay=previous
+        session_runner.sim_env=previous_sim_env
         finished.set()
         try:controller.stop(reason='policy_complete' if outcome.get('valid') else 'runner_disconnected')
         finally:

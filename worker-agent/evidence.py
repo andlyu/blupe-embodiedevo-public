@@ -2,13 +2,21 @@
 import hashlib
 import json
 from pathlib import Path
+import re
 from urllib.request import Request
 
 CAMERAS={'cam_head':'head','cam_left_wrist':'left','cam_right_wrist':'right'}
 
+def physical_session_directory(root):
+    """Find the explicit timestamp-prefixed native run directory, with legacy fallback."""
+    root=Path(root)
+    candidates=sorted(p for p in root.iterdir() if p.is_dir() and re.fullmatch(r'\d{12}_session',p.name))
+    if len(candidates)>1:raise ValueError('A physical attempt must have exactly one timestamped native session directory')
+    return candidates[0] if candidates else root/'session'
+
 def publish_evidence(client,job,run):
     root=Path(run)
-    episodes=[('practice',root/'playground')] if job['kind']=='practice' else [('physical',root/'session')] if job['kind']=='hardware' else [(f'scene-{int(p.name.split("_")[-1])+1}',p) for p in sorted((root/'test').glob('scene_*'))]
+    episodes=[('practice',root/'playground')] if job['kind']=='practice' else [('physical',physical_session_directory(root))] if job['kind']=='hardware' else [(f'scene-{int(p.name.split("_")[-1])+1}',p) for p in sorted((root/'test').glob('scene_*'))]
     transcript=[]
     for name,episode in episodes:
         for camera,role in CAMERAS.items():

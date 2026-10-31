@@ -4,14 +4,18 @@ import importlib.util
 import json
 import os
 from pathlib import Path
+import subprocess
 import tempfile
 import unittest
 import sys
 from unittest.mock import patch
 sys.path.insert(0,str(Path(__file__).parents[1]/'worker-agent'))
+ROOT=Path(__file__).parents[1]
+sys.path.insert(0,str(ROOT/'upstream/EmbodiedEvo'))
 spec=importlib.util.spec_from_file_location('core',Path(__file__).parents[1]/'worker-agent/core.py')
 core=importlib.util.module_from_spec(spec);spec.loader.exec_module(core)
 import yam_trial
+import evidence
 from yam_trial import AttributedSessionAPI,LiveCameraRecorder
 class WorkerTests(unittest.TestCase):
  def test_observations_never_cross_practice_and_test_phases(self):
@@ -114,4 +118,40 @@ class WorkerTests(unittest.TestCase):
     self.assertTrue(all((Path(d)/'frames'/role/'000001.jpg').is_file() for role in recorder.CAMERAS))
     self.assertEqual(set(url.rsplit('/',1)[-1] for url in urls[:3]),{'top.jpg','left.jpg','right.jpg'})
     recorder.stop_event.set();recorder.thread.join(2)
+ def test_physical_yam_session_environment_drops_simulator_egl(self):
+  from orchestrator import host_policy
+  with patch.object(host_policy,'require_allowed') as allowed, patch.dict(os.environ,{
+   'MUJOCO_GL':'egl','PYOPENGL_PLATFORM':'egl','MUJOCO_EGL_DEVICE_ID':'0',
+   'VK_ICD_FILENAMES':'/simulator/vulkan.json','CUDA_VISIBLE_DEVICES':'0,1',
+   'OMP_NUM_THREADS':'16','OPENBLAS_NUM_THREADS':'16'},clear=False):
+   env=yam_trial.physical_yam_session_env(None,'robodojo')
+  allowed.assert_called_once_with('local')
+  for name in ('MUJOCO_GL','PYOPENGL_PLATFORM','MUJOCO_EGL_DEVICE_ID','VK_ICD_FILENAMES'):
+   self.assertNotIn(name,env)
+  self.assertEqual(env['CUDA_VISIBLE_DEVICES'],'')
+  self.assertEqual(env['OMP_NUM_THREADS'],'1')
+  self.assertEqual(env['OPENBLAS_NUM_THREADS'],'1')
+ def test_yam_runtime_bootstrap_imports_with_native_mujoco_settings(self):
+  from orchestrator import host_policy
+  with patch.object(host_policy,'require_allowed'), patch.dict(os.environ,{
+   'MUJOCO_GL':'egl','PYOPENGL_PLATFORM':'egl','MUJOCO_EGL_DEVICE_ID':'0',
+   'VK_ICD_FILENAMES':'/simulator/vulkan.json'},clear=False):
+   env=yam_trial.physical_yam_session_env(None,'robodojo')
+  env.update(EMBODIEDEVO_YAM_PYTHON=sys.executable,
+   EMBODIEDEVO_REPO=str(ROOT/'upstream/EmbodiedEvo'))
+  result=subprocess.run([str(ROOT/'worker-agent/yam-runtime/bin/python'),
+   '-m','orchestrator.session','--help'],env=env,text=True,capture_output=True,timeout=20)
+  self.assertEqual(result.returncode,0,result.stderr)
+  self.assertIn('Host-owned persistent simulator',result.stdout)
+ def test_physical_evidence_uses_timestamp_prefixed_session_run(self):
+  with tempfile.TemporaryDirectory() as directory:
+   root=Path(directory);native=root/'202610312121_session';native.mkdir()
+   self.assertEqual(evidence.physical_session_directory(root),native)
+   (root/'202610312122_session').mkdir()
+   with self.assertRaisesRegex(ValueError,'exactly one'):
+    evidence.physical_session_directory(root)
+ def test_physical_evidence_keeps_legacy_session_path(self):
+  with tempfile.TemporaryDirectory() as directory:
+   root=Path(directory);legacy=root/'session';legacy.mkdir()
+   self.assertEqual(evidence.physical_session_directory(root),legacy)
 if __name__=='__main__':unittest.main()
