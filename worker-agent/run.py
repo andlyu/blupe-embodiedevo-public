@@ -38,6 +38,13 @@ class Client:
     def heartbeat(self):
         return self.post('heartbeat',{'version':PINS['embodiedevo'],'yam':os.environ.get('EMBODIEDEVO_ENABLE_YAM')=='1'})
 
+def publish_current_evidence(client,job,run):
+    # The long-lived worker may have loaded the evidence module before a
+    # publisher fix was deployed. Reload on every job so it sees current code.
+    import importlib
+    import evidence
+    return importlib.reload(evidence).publish_evidence(client,job,run)
+
 def serve_job(client,job,root,store):
     validate_job(job)
     verify_pins(root)
@@ -113,8 +120,7 @@ def serve_job(client,job,root,store):
             summary+=' Live YAM camera recording incomplete: '+str(result['recording_error'])[:300]
         report.update(outcomes=[{'scene':1,'valid':result.get('valid',False),'success':None,'reason':result.get('reason') or ''}],summary=summary)
     try:
-        from evidence import publish_evidence
-        publish_evidence(client,job,run)
+        publish_current_evidence(client,job,run)
     except Exception as exc:
         report['summary']+=' Evidence upload incomplete: '+str(exc)[:300]
     if report['state']=='completed' and job['kind']=='practice':

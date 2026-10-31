@@ -173,6 +173,18 @@ def zero_execution_failure(native,transport):
     if native.get('valid') is not True or native.get('executions_used',0)>0:return None
     return 'agent_transport_unavailable' if transport.get('requests_forwarded',0)==0 else 'agent_no_program_submitted'
 
+def physical_failure_reason(native_failure,*,zero_execution=None,policy_failure=None,
+                            status_error=None,safety_error=None,progress_error=None):
+    details=' '.join(str(value) for value in
+        (status_error,safety_error,progress_error) if value).lower()
+    if ('trajectory rejected before motion by safety guardrails' in details
+            and 'outside_limits' in details):
+        return 'hardware_safety_guardrail_rejected'
+    # Preserve a more specific direct-YAM diagnosis before the generic
+    # simulator/session failure returned by the shared upstream runner.
+    return (zero_execution or native_failure or policy_failure or status_error
+            or safety_error or progress_error)
+
 def physical_yam_session_env(_gpu=None,_backend=None):
     """Use the host's native MuJoCo runtime for the physical YAM adapter.
 
@@ -419,10 +431,16 @@ def run(job,original,trial,root):
         bridge=bridge_holder.get('bridge')
         transport=bridge.snapshot() if bridge else {}
         no_execution=zero_execution_failure(native,transport)
-        valid=native.get('valid') is True and not no_execution and not policy._failure and not status.get('error') and not status.get('safety_error')
+        try:progress_state=json.loads((trial/'hardware-progress.json').read_text())
+        except (OSError,ValueError):progress_state={}
+        valid=(native.get('valid') is True and not no_execution and not policy._failure
+               and not status.get('error') and not status.get('safety_error')
+               and not progress_state.get('error') and not progress_state.get('safety_error'))
         outcome.update(status='complete' if valid else 'failed',valid=valid,success=None,
                        executions=native.get('executions_used'),native_steps=native.get('native_steps_used'),
-                       reason=native.get('failure') or policy._failure or status.get('error') or no_execution,
+                       reason=physical_failure_reason(native.get('failure'),zero_execution=no_execution,
+                           policy_failure=policy._failure,status_error=status.get('error'),
+                           safety_error=status.get('safety_error'),progress_error=progress_state.get('error')),
                        session_transport=transport,
                        evaluator='operator_review',physical_replay=False)
         return 0 if valid else 1

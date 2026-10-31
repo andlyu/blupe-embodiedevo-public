@@ -2,7 +2,7 @@
 
 import {useEffect,useRef,useState} from 'react';
 
-type CameraClip={name:string;sha256:string;camera:'head'|'left'|'right';label:string};
+type CameraClip={name:string;sha256:string;camera:'head'|'left'|'right';label:string;url?:string};
 type SimulationScene={name:string;number:number;clips:CameraClip[]};
 
 const cameraLabels={head:'Head camera',left:'Left wrist',right:'Right wrist'};
@@ -125,8 +125,19 @@ function SimulationSceneReplay({jobId,scene,outcome}:{jobId:string;scene:Simulat
 }
 
 export function RecordedEvidence({job}:{job:any}){
- const media=job.report?.media||[],[programs,setPrograms]=useState<any[]>([]),[error,setError]=useState('');
+ const storedMedia=Array.isArray(job.report?.media)?job.report.media:[],[curatedMedia,setCuratedMedia]=useState<any[]>([]),[programs,setPrograms]=useState<any[]>([]),[error,setError]=useState('');
+ const media=storedMedia.length?storedMedia:curatedMedia;
  const source=media.find((item:any)=>item.name==='programs.json');
+ useEffect(()=>{
+  let alive=true;
+  setCuratedMedia([]);
+  if(job.kind!=='hardware'||storedMedia.length)return()=>{alive=false;};
+  fetch('/physical-evidence/manifest.json').then(response=>{
+   if(!response.ok)throw Error('Public physical recordings could not be loaded.');
+   return response.json();
+  }).then((value:any)=>{if(alive)setCuratedMedia(value.runs?.[job.id]?.media||[]);}).catch(()=>{if(alive)setCuratedMedia([]);});
+  return()=>{alive=false;};
+ },[job.id,job.kind,storedMedia.length]);
  useEffect(()=>{
   let alive=true;
   setPrograms([]);
@@ -153,7 +164,7 @@ export function RecordedEvidence({job}:{job:any}){
    const outcome=outcomes.find((item:any)=>Number(item.scene)===scene.number);
    return <SimulationSceneReplay key={scene.name} jobId={job.id} scene={scene} outcome={outcome}/>;
   })}</div>:<div className="recording-grid">{media.filter((item:any)=>item.name.endsWith('.mp4')).map((item:any)=><figure key={item.name}>
-   <video controls preload="metadata" playsInline src={'/api/media/'+job.id+'/'+item.name}/>
+   <video controls preload="metadata" playsInline src={item.url||'/api/media/'+job.id+'/'+item.name}/>
    <figcaption>{item.name.replace('.mp4','').replaceAll('-',' · ')}<details><summary>Recording digest</summary><code>{item.sha256}</code></details></figcaption>
   </figure>)}</div>}
   {error&&<p role="alert">{error}</p>}

@@ -1,0 +1,37 @@
+{
+  "schema": "blupe-public-physical-evidence-v1",
+  "runs": {
+    "17bfc338-248f-470f-be6a-faf5fa814bab": {
+      "source": "worker-retained live YAM camera recordings",
+      "fps": 2,
+      "frames": {
+        "head": 116,
+        "left": 116,
+        "right": 116
+      },
+      "media": [
+        {
+          "name": "physical-head.mp4",
+          "sha256": "6e80d2f1ed161d98fef86c9e0bcfb36b7b0721b35995f93d22a707eaf738f588",
+          "camera": "head",
+          "label": "Head camera",
+          "url": "https://blupe-embodiedevo.andlyu.chatgpt.site/physical-evidence/17bfc338-248f-470f-be6a-faf5fa814bab/physical-head.mp4"
+        },
+        {
+          "name": "physical-left.mp4",
+          "sha256": "80a609c4115b044c768bdb58dda67abad6c647e142c84c9f52645b27155c28db",
+          "camera": "left",
+          "label": "Left wrist",
+          "url": "https://blupe-embodiedevo.andlyu.chatgpt.site/physical-evidence/17bfc338-248f-470f-be6a-faf5fa814bab/physical-left.mp4"
+        },
+        {
+          "name": "physical-right.mp4",
+          "sha256": "5a1086c0f9411cd8aba4c888a980cbe395139e05d258c6bd51a6cf140df9657d",
+          "camera": "right",
+          "label": "Right wrist",
+          "url": "https://blupe-embodiedevo.andlyu.chatgpt.site/physical-evidence/17bfc338-248f-470f-be6a-faf5fa814bab/physical-right.mp4"
+        }
+      ]
+    }
+  }
+}

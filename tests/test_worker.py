@@ -18,12 +18,20 @@ spec=importlib.util.spec_from_file_location('core',Path(__file__).parents[1]/'wo
 core=importlib.util.module_from_spec(spec);spec.loader.exec_module(core)
 import yam_trial
 import evidence
+import run as worker_run
 from yam_trial import (
  AttributedSessionAPI,LiveCameraRecorder,SessionSocketBridge,
  adapt_agent_command_for_session_bridge,enable_docker_session_bridge_client,
- zero_execution_failure,
+ physical_failure_reason,zero_execution_failure,
 )
 class WorkerTests(unittest.TestCase):
+ def test_evidence_publisher_reloads_for_each_long_lived_worker_job(self):
+  with patch('importlib.reload',return_value=evidence) as reload_module:
+   with patch.object(evidence,'publish_evidence',return_value='published') as publish:
+    result=worker_run.publish_current_evidence('client','job','run')
+  self.assertEqual(result,'published')
+  reload_module.assert_called_once_with(evidence)
+  publish.assert_called_once_with('client','job','run')
  def test_observations_never_cross_practice_and_test_phases(self):
   with tempfile.TemporaryDirectory() as d:
    run=Path(d)
@@ -218,6 +226,14 @@ class WorkerTests(unittest.TestCase):
   self.assertEqual(zero_execution_failure({'valid':True,'executions_used':0},{'requests_forwarded':2}),
                    'agent_no_program_submitted')
   self.assertIsNone(zero_execution_failure({'valid':True,'executions_used':1},{'requests_forwarded':1}))
+ def test_physical_failure_uses_specific_hardware_guardrail_error(self):
+  self.assertEqual(physical_failure_reason('simulator_failed',
+      progress_error='RuntimeError: joint_9_outside_limits: Trajectory rejected before motion by Safety Guardrails'),
+      'hardware_safety_guardrail_rejected')
+ def test_physical_failure_preserves_zero_execution_and_native_reasons(self):
+  self.assertEqual(physical_failure_reason('simulator_failed',zero_execution='agent_transport_unavailable'),
+                   'agent_transport_unavailable')
+  self.assertEqual(physical_failure_reason('model_code_error'),'model_code_error')
  def test_physical_evidence_uses_timestamp_prefixed_session_run(self):
   with tempfile.TemporaryDirectory() as directory:
    root=Path(directory);native=root/'202610312121_session';native.mkdir()
