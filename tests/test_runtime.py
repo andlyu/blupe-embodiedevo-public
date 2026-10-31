@@ -38,6 +38,40 @@ class RuntimeTests(unittest.TestCase):
             failed = {c['name'] for c in result['checks'] if not c['ok']}
             self.assertTrue({'host', 'gpu', 'simulator_interpreter', 'operator_login'} <= failed)
 
+    def test_yam_runtime_does_not_require_simulator_or_gpu(self):
+        calls = []
+
+        def fake_command(args, timeout=30):
+            calls.append(args)
+            return 'runtime-ok'
+
+        with patch.object(doctor, 'verify_pins'), \
+             patch.object(doctor.platform, 'system', return_value='Linux'), \
+             patch.object(doctor.platform, 'machine', return_value='x86_64'), \
+             patch.object(doctor.importlib.metadata, 'version', return_value='1.0'), \
+             patch.object(doctor, 'command', side_effect=fake_command):
+            result = doctor.inspect_yam_runtime(ROOT, model=False)
+
+        self.assertTrue(result['ready'])
+        self.assertTrue(result['physical_execution_supported'])
+        self.assertFalse(result['physics_started'])
+        self.assertFalse(result['robot_motion_started'])
+        self.assertFalse(result['station_checked'])
+        self.assertFalse({'gpu', 'simulator_interpreter', 'native_source_and_assets'} &
+                         {check['name'] for check in result['checks']})
+        self.assertFalse(any(args[0] == 'nvidia-smi' for args in calls))
+
+    def test_yam_runtime_rejects_unsupported_host_without_claiming_readiness(self):
+        with patch.object(doctor, 'verify_pins'), \
+             patch.object(doctor.platform, 'system', return_value='Windows'), \
+             patch.object(doctor.platform, 'machine', return_value='AMD64'), \
+             patch.object(doctor.importlib.metadata, 'version', return_value='1.0'), \
+             patch.object(doctor, 'command', return_value='runtime-ok'):
+            result = doctor.inspect_yam_runtime(ROOT, model=False)
+        self.assertFalse(result['ready'])
+        self.assertFalse(result['physical_execution_supported'])
+        self.assertFalse(result['robot_motion_started'])
+
     def test_service_access_has_one_bearer_prefix_and_no_url_secret(self):
         for access in ['private-service-token', 'Bearer private-service-token']:
             client = polling.Client('https://example.com', 'x' * 32, 'worker-1', access)

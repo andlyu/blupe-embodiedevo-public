@@ -1,0 +1,2018 @@
+{
+  "repository": "Einsia/EmbodiedEvo",
+  "repository_url": "https://github.com/Einsia/EmbodiedEvo",
+  "library_path": "Workspace/skills",
+  "revision": "689a09b419d2555bf94f7345f58c62969a43739e",
+  "skills": {
+    "align_blocks": {
+      "name": "Align Blocks",
+      "task": "align_blocks",
+      "files": [
+        {
+          "source": "Workspace/skills/align_blocks/ee_move.md",
+          "destination": "ee_move.md",
+          "git_blob_sha1": "12027ef8ffae0456ea54d8dd55cbfada663df0e0",
+          "bytes": 1622
+        },
+        {
+          "source": "Workspace/skills/align_blocks/ee_move.py",
+          "destination": "ee_move.py",
+          "git_blob_sha1": "4fd98a2d3c62850020b986d626dbdda62a794c06",
+          "bytes": 1486
+        },
+        {
+          "source": "Workspace/skills/align_blocks/example.md",
+          "destination": "example.md",
+          "git_blob_sha1": "4a8cc99c4572c15478cb3fd053d6404dfa128890",
+          "bytes": 1486
+        },
+        {
+          "source": "Workspace/skills/align_blocks/planar_sweep.md",
+          "destination": "planar_sweep.md",
+          "git_blob_sha1": "aadbc96284ddcf3e125a15a0b67794c08113a1ad",
+          "bytes": 3473
+        },
+        {
+          "source": "Workspace/skills/align_blocks/planar_sweep.py",
+          "destination": "planar_sweep.py",
+          "git_blob_sha1": "4461a57b12e090ee28c954217819d85df92a4e32",
+          "bytes": 1510
+        }
+      ]
+    },
+    "arrange_largest_number": {
+      "name": "Arrange Largest Number",
+      "task": "arrange_largest_number",
+      "files": [
+        {
+          "source": "Workspace/skills/arrange_largest_number/ee_motion.md",
+          "destination": "ee_motion.md",
+          "git_blob_sha1": "a8fc3a75618ccf4ab1beeabf0409de965845fa9e",
+          "bytes": 2337
+        },
+        {
+          "source": "Workspace/skills/arrange_largest_number/ee_motion.py",
+          "destination": "ee_motion.py",
+          "git_blob_sha1": "72c91796a8d430676658895429e3501212fa2258",
+          "bytes": 2387
+        },
+        {
+          "source": "Workspace/skills/arrange_largest_number/example.md",
+          "destination": "example.md",
+          "git_blob_sha1": "4a8cc99c4572c15478cb3fd053d6404dfa128890",
+          "bytes": 1486
+        },
+        {
+          "source": "Workspace/skills/arrange_largest_number/home_motion.md",
+          "destination": "home_motion.md",
+          "git_blob_sha1": "645a6d65648e0645af7fb66b81687e2141bbf0c9",
+          "bytes": 1638
+        },
+        {
+          "source": "Workspace/skills/arrange_largest_number/home_motion.py",
+          "destination": "home_motion.py",
+          "git_blob_sha1": "6fa66c9ef3591b7cb63e21ae4991eee3d48197b7",
+          "bytes": 1308
+        }
+      ]
+    },
+    "build_tower": {
+      "name": "Build Tower",
+      "task": "build_tower",
+      "files": [
+        {
+          "source": "Workspace/skills/build_tower/dual_ee_motion.md",
+          "destination": "dual_ee_motion.md",
+          "git_blob_sha1": "c61c587d86e314c11ce0e17fe44f57ffc81a18c4",
+          "bytes": 1263
+        },
+        {
+          "source": "Workspace/skills/build_tower/dual_ee_motion.py",
+          "destination": "dual_ee_motion.py",
+          "git_blob_sha1": "ec3468b0ebe54ab7748b2fb8b263615000e8e808",
+          "bytes": 1748
+        },
+        {
+          "source": "Workspace/skills/build_tower/ee_motion.md",
+          "destination": "ee_motion.md",
+          "git_blob_sha1": "fcb47298a9b155ecf31698c9389877dfca8871ec",
+          "bytes": 1568
+        },
+        {
+          "source": "Workspace/skills/build_tower/ee_motion.py",
+          "destination": "ee_motion.py",
+          "git_blob_sha1": "248b12d7313f5a31eae1529e58804f7d9c2810f7",
+          "bytes": 1925
+        },
+        {
+          "source": "Workspace/skills/build_tower/example.md",
+          "destination": "example.md",
+          "git_blob_sha1": "4a8cc99c4572c15478cb3fd053d6404dfa128890",
+          "bytes": 1486
+        },
+        {
+          "source": "Workspace/skills/build_tower/pick_place.md",
+          "destination": "pick_place.md",
+          "git_blob_sha1": "65db3d48b49e3dd4a429dffbe8c7dd78deedecde",
+          "bytes": 1989
+        },
+        {
+          "source": "Workspace/skills/build_tower/pick_place.py",
+          "destination": "pick_place.py",
+          "git_blob_sha1": "9e5f8067a084f2333ca5df3fc9507a7dcea0051c",
+          "bytes": 1310
+        }
+      ]
+    },
+    "classify_objects": {
+      "name": "Classify Objects",
+      "task": "classify_objects",
+      "files": [
+        {
+          "source": "Workspace/skills/classify_objects/ee_motion.md",
+          "destination": "ee_motion.md",
+          "git_blob_sha1": "f7f879d2f87bb5afe18c1f49b25784b4f836a299",
+          "bytes": 1695
+        },
+        {
+          "source": "Workspace/skills/classify_objects/ee_motion.py",
+          "destination": "ee_motion.py",
+          "git_blob_sha1": "eee2a9c68fc0d4b442ddf73d1050a76347d90ffc",
+          "bytes": 1389
+        },
+        {
+          "source": "Workspace/skills/classify_objects/example.md",
+          "destination": "example.md",
+          "git_blob_sha1": "4a8cc99c4572c15478cb3fd053d6404dfa128890",
+          "bytes": 1486
+        },
+        {
+          "source": "Workspace/skills/classify_objects/settled_release.md",
+          "destination": "settled_release.md",
+          "git_blob_sha1": "036da241e1fc8dcea9c04cfde8350e000dda8af3",
+          "bytes": 1165
+        },
+        {
+          "source": "Workspace/skills/classify_objects/settled_release.py",
+          "destination": "settled_release.py",
+          "git_blob_sha1": "5f9dd43a10a2cad7b4ae4c27ce19ff8f37fac6f4",
+          "bytes": 760
+        },
+        {
+          "source": "Workspace/skills/classify_objects/staged_carry.md",
+          "destination": "staged_carry.md",
+          "git_blob_sha1": "a850fb3f2a23270729f68b4c63e239ccf49895b1",
+          "bytes": 1344
+        },
+        {
+          "source": "Workspace/skills/classify_objects/staged_carry.py",
+          "destination": "staged_carry.py",
+          "git_blob_sha1": "7c169bf6231d17ffdf8f1391820bb2da078be4ff",
+          "bytes": 1205
+        }
+      ]
+    },
+    "classify_objects_by_language": {
+      "name": "Classify Objects By Language",
+      "task": "classify_objects_by_language",
+      "files": [
+        {
+          "source": "Workspace/skills/classify_objects_by_language/ee_motion.md",
+          "destination": "ee_motion.md",
+          "git_blob_sha1": "fc371c6667abc25ad5aea3bc0c429be47131652e",
+          "bytes": 3652
+        },
+        {
+          "source": "Workspace/skills/classify_objects_by_language/ee_motion.py",
+          "destination": "ee_motion.py",
+          "git_blob_sha1": "9e486dcf14e4fc7ea842d8c51079d7ec66c5d6e5",
+          "bytes": 2789
+        },
+        {
+          "source": "Workspace/skills/classify_objects_by_language/example.md",
+          "destination": "example.md",
+          "git_blob_sha1": "4a8cc99c4572c15478cb3fd053d6404dfa128890",
+          "bytes": 1486
+        },
+        {
+          "source": "Workspace/skills/classify_objects_by_language/visual_pick_place.md",
+          "destination": "visual_pick_place.md",
+          "git_blob_sha1": "c0870ee3ef431bed19d5099e68cf386eb2adc091",
+          "bytes": 2912
+        }
+      ]
+    },
+    "cover_blocks": {
+      "name": "Cover Blocks",
+      "task": "cover_blocks",
+      "files": [
+        {
+          "source": "Workspace/skills/cover_blocks/README.md",
+          "destination": "README.md",
+          "git_blob_sha1": "aaf93038d001c2923351c4d6218adb8b688b7dde",
+          "bytes": 1105
+        },
+        {
+          "source": "Workspace/skills/cover_blocks/ee_move.md",
+          "destination": "ee_move.md",
+          "git_blob_sha1": "ea2197f8006acc51593b53fd96354c06565b65d1",
+          "bytes": 1607
+        },
+        {
+          "source": "Workspace/skills/cover_blocks/ee_move.py",
+          "destination": "ee_move.py",
+          "git_blob_sha1": "0901afedc968e01a848109ac3f15106d4431b849",
+          "bytes": 1877
+        },
+        {
+          "source": "Workspace/skills/cover_blocks/example.md",
+          "destination": "example.md",
+          "git_blob_sha1": "4a8cc99c4572c15478cb3fd053d6404dfa128890",
+          "bytes": 1486
+        },
+        {
+          "source": "Workspace/skills/cover_blocks/return_joints.md",
+          "destination": "return_joints.md",
+          "git_blob_sha1": "71bbe721542a34d599c243c18a63414519811118",
+          "bytes": 1286
+        },
+        {
+          "source": "Workspace/skills/cover_blocks/return_joints.py",
+          "destination": "return_joints.py",
+          "git_blob_sha1": "989684f0b3ec75fe90810255ef4dcd087030f158",
+          "bytes": 1072
+        },
+        {
+          "source": "Workspace/skills/cover_blocks/upright_cover.md",
+          "destination": "upright_cover.md",
+          "git_blob_sha1": "2b65e5cf5b83f4861d813decef44e33526c13f5e",
+          "bytes": 2890
+        },
+        {
+          "source": "Workspace/skills/cover_blocks/upright_cover.py",
+          "destination": "upright_cover.py",
+          "git_blob_sha1": "6ed6b673b012a19583bdc6012b7b2e16022a353d",
+          "bytes": 2020
+        }
+      ]
+    },
+    "deposit_coin": {
+      "name": "Deposit Coin",
+      "task": "deposit_coin",
+      "files": [
+        {
+          "source": "Workspace/skills/deposit_coin/example.md",
+          "destination": "example.md",
+          "git_blob_sha1": "4a8cc99c4572c15478cb3fd053d6404dfa128890",
+          "bytes": 1486
+        },
+        {
+          "source": "Workspace/skills/deposit_coin/move_line.md",
+          "destination": "move_line.md",
+          "git_blob_sha1": "8d6ac6408627d255e6c30093f6b592fb94e2e958",
+          "bytes": 1631
+        },
+        {
+          "source": "Workspace/skills/deposit_coin/move_line.py",
+          "destination": "move_line.py",
+          "git_blob_sha1": "277e7d860864ed368a5448018cb94ec4128b4d98",
+          "bytes": 1576
+        },
+        {
+          "source": "Workspace/skills/deposit_coin/reach_ee.md",
+          "destination": "reach_ee.md",
+          "git_blob_sha1": "d23edf23ea55d284d37454ff3b2146d5f25ea002",
+          "bytes": 2018
+        },
+        {
+          "source": "Workspace/skills/deposit_coin/reach_ee.py",
+          "destination": "reach_ee.py",
+          "git_blob_sha1": "a76ca86c05cc452311932ec5339c5983af654fd3",
+          "bytes": 1673
+        }
+      ]
+    },
+    "fasten_screws": {
+      "name": "Fasten Screws",
+      "task": "fasten_screws",
+      "files": [
+        {
+          "source": "Workspace/skills/fasten_screws/ee_motion.md",
+          "destination": "ee_motion.md",
+          "git_blob_sha1": "f404a2f84a876e763dea1d9dae50f9cb58ac38d7",
+          "bytes": 1727
+        },
+        {
+          "source": "Workspace/skills/fasten_screws/ee_motion.py",
+          "destination": "ee_motion.py",
+          "git_blob_sha1": "aecb5c8aa03bf95a5d35e78101023c936b3bd406",
+          "bytes": 1760
+        },
+        {
+          "source": "Workspace/skills/fasten_screws/example.md",
+          "destination": "example.md",
+          "git_blob_sha1": "4a8cc99c4572c15478cb3fd053d6404dfa128890",
+          "bytes": 1486
+        },
+        {
+          "source": "Workspace/skills/fasten_screws/nut_manipulation.md",
+          "destination": "nut_manipulation.md",
+          "git_blob_sha1": "1c5837b6e3970278d426ae234c3b66b627204218",
+          "bytes": 3481
+        }
+      ]
+    },
+    "fill_egg_holder": {
+      "name": "Fill Egg Holder",
+      "task": "fill_egg_holder",
+      "files": [
+        {
+          "source": "Workspace/skills/fill_egg_holder/README.md",
+          "destination": "README.md",
+          "git_blob_sha1": "750563a3c7f1f8e222bafa21c86f9a846b980060",
+          "bytes": 3150
+        },
+        {
+          "source": "Workspace/skills/fill_egg_holder/egg_retention.md",
+          "destination": "egg_retention.md",
+          "git_blob_sha1": "ec84f98bbe568a07750c46ff975ed36a95c687be",
+          "bytes": 1083
+        },
+        {
+          "source": "Workspace/skills/fill_egg_holder/egg_retention.py",
+          "destination": "egg_retention.py",
+          "git_blob_sha1": "9267a67e62b3a6c0655746b2021fa14e2d0e80db",
+          "bytes": 353
+        },
+        {
+          "source": "Workspace/skills/fill_egg_holder/example.md",
+          "destination": "example.md",
+          "git_blob_sha1": "4a8cc99c4572c15478cb3fd053d6404dfa128890",
+          "bytes": 1486
+        },
+        {
+          "source": "Workspace/skills/fill_egg_holder/fold_hinged_panel.md",
+          "destination": "fold_hinged_panel.md",
+          "git_blob_sha1": "3c3b994be380e2ab6fd929a324ffcc8dfe37211c",
+          "bytes": 1928
+        },
+        {
+          "source": "Workspace/skills/fill_egg_holder/fold_hinged_panel.py",
+          "destination": "fold_hinged_panel.py",
+          "git_blob_sha1": "d178e30af2b724d5836a89b0f72630acf2fd90e8",
+          "bytes": 1484
+        },
+        {
+          "source": "Workspace/skills/fill_egg_holder/linear_transport.md",
+          "destination": "linear_transport.md",
+          "git_blob_sha1": "5c22099462834dda23045be5a7d35e267f8486b4",
+          "bytes": 1629
+        },
+        {
+          "source": "Workspace/skills/fill_egg_holder/linear_transport.py",
+          "destination": "linear_transport.py",
+          "git_blob_sha1": "a4e6a688a513ba0a1a4cd56e5d210ec716491cef",
+          "bytes": 1684
+        },
+        {
+          "source": "Workspace/skills/fill_egg_holder/rotate_retained.md",
+          "destination": "rotate_retained.md",
+          "git_blob_sha1": "56a67596b87624ca75c82accaa118b070b0663d4",
+          "bytes": 818
+        },
+        {
+          "source": "Workspace/skills/fill_egg_holder/rotate_retained.py",
+          "destination": "rotate_retained.py",
+          "git_blob_sha1": "3015b0f96c2bcb32bf2aad11001a332e7beb9b01",
+          "bytes": 660
+        },
+        {
+          "source": "Workspace/skills/fill_egg_holder/servo_pose.md",
+          "destination": "servo_pose.md",
+          "git_blob_sha1": "ec8e2400583f560e3c3a29381c9bcabb91edf148",
+          "bytes": 1101
+        },
+        {
+          "source": "Workspace/skills/fill_egg_holder/servo_pose.py",
+          "destination": "servo_pose.py",
+          "git_blob_sha1": "d8de49985279cfd1e49d4db87452d7f14f115905",
+          "bytes": 1290
+        }
+      ]
+    },
+    "fill_pen_holder": {
+      "name": "Fill Pen Holder",
+      "task": "fill_pen_holder",
+      "files": [
+        {
+          "source": "Workspace/skills/fill_pen_holder/README.md",
+          "destination": "README.md",
+          "git_blob_sha1": "d3d3d3d44cfa97eb3adcfbaa40e1d12849e0596c",
+          "bytes": 1383
+        },
+        {
+          "source": "Workspace/skills/fill_pen_holder/ee_control.md",
+          "destination": "ee_control.md",
+          "git_blob_sha1": "f52921d876c799cd163c1efaf819dfce7007b2f4",
+          "bytes": 915
+        },
+        {
+          "source": "Workspace/skills/fill_pen_holder/ee_control.py",
+          "destination": "ee_control.py",
+          "git_blob_sha1": "1e91bb34fcada52aa6ef382d4c8fdc5ead76ff44",
+          "bytes": 1774
+        },
+        {
+          "source": "Workspace/skills/fill_pen_holder/example.md",
+          "destination": "example.md",
+          "git_blob_sha1": "4a8cc99c4572c15478cb3fd053d6404dfa128890",
+          "bytes": 1486
+        },
+        {
+          "source": "Workspace/skills/fill_pen_holder/pen_manipulation.md",
+          "destination": "pen_manipulation.md",
+          "git_blob_sha1": "3ddcc2f1a19ae12827a86cdbcf79ef8b5dd58831",
+          "bytes": 2824
+        },
+        {
+          "source": "Workspace/skills/fill_pen_holder/pose_path.md",
+          "destination": "pose_path.md",
+          "git_blob_sha1": "94da1a36e1836e8c8e20d51b11106d56ee52d88e",
+          "bytes": 1593
+        },
+        {
+          "source": "Workspace/skills/fill_pen_holder/pose_path.py",
+          "destination": "pose_path.py",
+          "git_blob_sha1": "bbb33e2b91c2411ddd4b8bb2d380e2265bb48c7c",
+          "bytes": 1560
+        }
+      ]
+    },
+    "fold_clothes": {
+      "name": "Fold Clothes",
+      "task": "fold_clothes",
+      "files": [
+        {
+          "source": "Workspace/skills/fold_clothes/cloth_folding.md",
+          "destination": "cloth_folding.md",
+          "git_blob_sha1": "4126bfa0366af710d9feea688805f994136a489e",
+          "bytes": 4657
+        },
+        {
+          "source": "Workspace/skills/fold_clothes/example.md",
+          "destination": "example.md",
+          "git_blob_sha1": "4a8cc99c4572c15478cb3fd053d6404dfa128890",
+          "bytes": 1486
+        },
+        {
+          "source": "Workspace/skills/fold_clothes/move_pair.md",
+          "destination": "move_pair.md",
+          "git_blob_sha1": "62b98a9f7307c327f7fe36b958dbc82a3814338a",
+          "bytes": 1961
+        },
+        {
+          "source": "Workspace/skills/fold_clothes/move_pair.py",
+          "destination": "move_pair.py",
+          "git_blob_sha1": "30396b5dfdaaaec043aa95584e630b1f60c1382a",
+          "bytes": 1818
+        },
+        {
+          "source": "Workspace/skills/fold_clothes/return_joints.md",
+          "destination": "return_joints.md",
+          "git_blob_sha1": "5b11055b380edd8ebd125e3d9f2c81225baf9b41",
+          "bytes": 1251
+        },
+        {
+          "source": "Workspace/skills/fold_clothes/return_joints.py",
+          "destination": "return_joints.py",
+          "git_blob_sha1": "227aef534f67ac15ae3aca1776b83c5a3b2e483c",
+          "bytes": 713
+        }
+      ]
+    },
+    "general_pickup": {
+      "name": "General Pickup",
+      "task": "general_pickup",
+      "files": [
+        {
+          "source": "Workspace/skills/general_pickup/example.md",
+          "destination": "example.md",
+          "git_blob_sha1": "4a8cc99c4572c15478cb3fd053d6404dfa128890",
+          "bytes": 1486
+        },
+        {
+          "source": "Workspace/skills/general_pickup/move_ee.md",
+          "destination": "move_ee.md",
+          "git_blob_sha1": "ea70df40fbd8e73d2cf61c62609eb4634a5d5207",
+          "bytes": 1767
+        },
+        {
+          "source": "Workspace/skills/general_pickup/move_ee.py",
+          "destination": "move_ee.py",
+          "git_blob_sha1": "a48d9dc78dd5302bf705870438d3d27d86af61e2",
+          "bytes": 1712
+        },
+        {
+          "source": "Workspace/skills/general_pickup/visual_pinch_lift.md",
+          "destination": "visual_pinch_lift.md",
+          "git_blob_sha1": "b31eb6bf6880051845ec9dd3e36513fa808d5a7c",
+          "bytes": 2426
+        }
+      ]
+    },
+    "hang_mugs": {
+      "name": "Hang Mugs",
+      "task": "hang_mugs",
+      "files": [
+        {
+          "source": "Workspace/skills/hang_mugs/ee_servo.md",
+          "destination": "ee_servo.md",
+          "git_blob_sha1": "3c9618bc848ab0cf4fcf0a36823edcaa4a6e8c09",
+          "bytes": 1460
+        },
+        {
+          "source": "Workspace/skills/hang_mugs/ee_servo.py",
+          "destination": "ee_servo.py",
+          "git_blob_sha1": "2df0a75c2fc9d51ca31e52bb82ad87e929957499",
+          "bytes": 2276
+        },
+        {
+          "source": "Workspace/skills/hang_mugs/example.md",
+          "destination": "example.md",
+          "git_blob_sha1": "4a8cc99c4572c15478cb3fd053d6404dfa128890",
+          "bytes": 1486
+        },
+        {
+          "source": "Workspace/skills/hang_mugs/grasp_probe.md",
+          "destination": "grasp_probe.md",
+          "git_blob_sha1": "e23ce68b1f9a94b99e4d0fa47c22284514209ad7",
+          "bytes": 1347
+        },
+        {
+          "source": "Workspace/skills/hang_mugs/grasp_probe.py",
+          "destination": "grasp_probe.py",
+          "git_blob_sha1": "f82d10d2d91dbcb7cd0a5a74442765fa832ba7f0",
+          "bytes": 1011
+        },
+        {
+          "source": "Workspace/skills/hang_mugs/handle_insertion.md",
+          "destination": "handle_insertion.md",
+          "git_blob_sha1": "95c7f1ad86f0e2ceb8ef76cf77ac344ecf042bc9",
+          "bytes": 1807
+        },
+        {
+          "source": "Workspace/skills/hang_mugs/handle_insertion.py",
+          "destination": "handle_insertion.py",
+          "git_blob_sha1": "c1291ddaa27f78a6e7d29cca76dfc4e7f62d5679",
+          "bytes": 1657
+        }
+      ]
+    },
+    "imitate_sorting_sequence": {
+      "name": "Imitate Sorting Sequence",
+      "task": "imitate_sorting_sequence",
+      "files": [
+        {
+          "source": "Workspace/skills/imitate_sorting_sequence/ee_motion.md",
+          "destination": "ee_motion.md",
+          "git_blob_sha1": "581311cd5be31c0bd0c455a0b9f3d42f6a64531a",
+          "bytes": 4162
+        },
+        {
+          "source": "Workspace/skills/imitate_sorting_sequence/ee_motion.py",
+          "destination": "ee_motion.py",
+          "git_blob_sha1": "02732d06a8344c8be6520f66f941ef6978ff05a9",
+          "bytes": 4181
+        },
+        {
+          "source": "Workspace/skills/imitate_sorting_sequence/example.md",
+          "destination": "example.md",
+          "git_blob_sha1": "4a8cc99c4572c15478cb3fd053d6404dfa128890",
+          "bytes": 1486
+        },
+        {
+          "source": "Workspace/skills/imitate_sorting_sequence/stationary_watch.md",
+          "destination": "stationary_watch.md",
+          "git_blob_sha1": "b319bbb1078bcd5bb0873afc32fdff8471c940ee",
+          "bytes": 1665
+        },
+        {
+          "source": "Workspace/skills/imitate_sorting_sequence/stationary_watch.py",
+          "destination": "stationary_watch.py",
+          "git_blob_sha1": "703d2f079685ee26657cf5e3aab95866b8baf86a",
+          "bytes": 971
+        }
+      ]
+    },
+    "insert_key": {
+      "name": "Insert Key",
+      "task": "insert_key",
+      "files": [
+        {
+          "source": "Workspace/skills/insert_key/README.md",
+          "destination": "README.md",
+          "git_blob_sha1": "6d72cceaa9a9614b3652422c500d80f7283ad297",
+          "bytes": 2004
+        },
+        {
+          "source": "Workspace/skills/insert_key/ee_rotate.md",
+          "destination": "ee_rotate.md",
+          "git_blob_sha1": "0ad9bcc09b5ec684c5da573235d2a4764ccf89c7",
+          "bytes": 1509
+        },
+        {
+          "source": "Workspace/skills/insert_key/ee_rotate.py",
+          "destination": "ee_rotate.py",
+          "git_blob_sha1": "5c7dc3b71d75582d09dc3d080a237b2d87ac20b0",
+          "bytes": 1428
+        },
+        {
+          "source": "Workspace/skills/insert_key/ee_stage.md",
+          "destination": "ee_stage.md",
+          "git_blob_sha1": "890065c8475c6829b0bebf804a9bd2854f4004bb",
+          "bytes": 1798
+        },
+        {
+          "source": "Workspace/skills/insert_key/ee_stage.py",
+          "destination": "ee_stage.py",
+          "git_blob_sha1": "544c69229c4751fcaea85c01ad298cb8aa45e986",
+          "bytes": 1723
+        },
+        {
+          "source": "Workspace/skills/insert_key/ee_translate.md",
+          "destination": "ee_translate.md",
+          "git_blob_sha1": "3186a79e90e630b82c1fde9d4b799d0084100925",
+          "bytes": 1576
+        },
+        {
+          "source": "Workspace/skills/insert_key/ee_translate.py",
+          "destination": "ee_translate.py",
+          "git_blob_sha1": "40f1b36662b4527345144f0b1670637d16cf8821",
+          "bytes": 1533
+        },
+        {
+          "source": "Workspace/skills/insert_key/ee_yaw_pivot.md",
+          "destination": "ee_yaw_pivot.md",
+          "git_blob_sha1": "dc1e70b3af48a6647cc86c8ce4023cd91e649652",
+          "bytes": 1328
+        },
+        {
+          "source": "Workspace/skills/insert_key/ee_yaw_pivot.py",
+          "destination": "ee_yaw_pivot.py",
+          "git_blob_sha1": "1c3065f287b9f39d209cc4be9823c734e3ab1cef",
+          "bytes": 1329
+        },
+        {
+          "source": "Workspace/skills/insert_key/example.md",
+          "destination": "example.md",
+          "git_blob_sha1": "4a8cc99c4572c15478cb3fd053d6404dfa128890",
+          "bytes": 1486
+        },
+        {
+          "source": "Workspace/skills/insert_key/guarded_descent.md",
+          "destination": "guarded_descent.md",
+          "git_blob_sha1": "a6065b6b63b8ef9ff3c12d312cd3caaa4761c864",
+          "bytes": 1266
+        },
+        {
+          "source": "Workspace/skills/insert_key/guarded_descent.py",
+          "destination": "guarded_descent.py",
+          "git_blob_sha1": "274d5af3ebc9e6a3bea81c54f3379b66fea4d22d",
+          "bytes": 1408
+        }
+      ]
+    },
+    "insert_tubes": {
+      "name": "Insert Tubes",
+      "task": "insert_tubes",
+      "files": [
+        {
+          "source": "Workspace/skills/insert_tubes/ee_move.md",
+          "destination": "ee_move.md",
+          "git_blob_sha1": "e33ebc3a2a1e20ed17d52c8cbb29059e3f1cdca7",
+          "bytes": 1478
+        },
+        {
+          "source": "Workspace/skills/insert_tubes/ee_move.py",
+          "destination": "ee_move.py",
+          "git_blob_sha1": "dce9d03034149bcbcd547429fe53d223ce25bb4e",
+          "bytes": 1354
+        },
+        {
+          "source": "Workspace/skills/insert_tubes/example.md",
+          "destination": "example.md",
+          "git_blob_sha1": "4a8cc99c4572c15478cb3fd053d6404dfa128890",
+          "bytes": 1486
+        },
+        {
+          "source": "Workspace/skills/insert_tubes/guarded_descent.md",
+          "destination": "guarded_descent.md",
+          "git_blob_sha1": "7ead0d6c34852ef40b3b0e26ee8d4f08ac5fdc0a",
+          "bytes": 1494
+        },
+        {
+          "source": "Workspace/skills/insert_tubes/guarded_descent.py",
+          "destination": "guarded_descent.py",
+          "git_blob_sha1": "22590fa05eddab2026d560affb276363ef41b198",
+          "bytes": 1931
+        },
+        {
+          "source": "Workspace/skills/insert_tubes/smooth_ee.md",
+          "destination": "smooth_ee.md",
+          "git_blob_sha1": "d67c9f88d8d6bd3c0b9832620d0e2a99bb05f61f",
+          "bytes": 1250
+        },
+        {
+          "source": "Workspace/skills/insert_tubes/smooth_ee.py",
+          "destination": "smooth_ee.py",
+          "git_blob_sha1": "44d566a8cd39ed105a1ea39c1b6db55ef45a7c10",
+          "bytes": 1354
+        },
+        {
+          "source": "Workspace/skills/insert_tubes/tube_frames.md",
+          "destination": "tube_frames.md",
+          "git_blob_sha1": "6e216e3090ced905a1db42160e2898c8048a2abb",
+          "bytes": 2096
+        },
+        {
+          "source": "Workspace/skills/insert_tubes/tube_frames.py",
+          "destination": "tube_frames.py",
+          "git_blob_sha1": "392a7deb2b8bce3a1e6c9fa5c94fed5914b4fd71",
+          "bytes": 309
+        }
+      ]
+    },
+    "make_kong": {
+      "name": "Make Kong",
+      "task": "make_kong",
+      "files": [
+        {
+          "source": "Workspace/skills/make_kong/README.md",
+          "destination": "README.md",
+          "git_blob_sha1": "e03e7ad54ea22d5d5ba3e01e31d81d485d5e4590",
+          "bytes": 1373
+        },
+        {
+          "source": "Workspace/skills/make_kong/cartesian.md",
+          "destination": "cartesian.md",
+          "git_blob_sha1": "3621729148545b297c4b9eadce71b857b96d755d",
+          "bytes": 1399
+        },
+        {
+          "source": "Workspace/skills/make_kong/cartesian.py",
+          "destination": "cartesian.py",
+          "git_blob_sha1": "e0183c7337fd2f58b8949c06bc6be9deb0b5a44a",
+          "bytes": 1465
+        },
+        {
+          "source": "Workspace/skills/make_kong/cartesian_path.md",
+          "destination": "cartesian_path.md",
+          "git_blob_sha1": "72fdd6e26c57a74ca2fa1d2743a93a4ffa2add61",
+          "bytes": 1173
+        },
+        {
+          "source": "Workspace/skills/make_kong/cartesian_path.py",
+          "destination": "cartesian_path.py",
+          "git_blob_sha1": "d1ddf955fb61eb4cd7b67eec00517206f1e94986",
+          "bytes": 1052
+        },
+        {
+          "source": "Workspace/skills/make_kong/example.md",
+          "destination": "example.md",
+          "git_blob_sha1": "4a8cc99c4572c15478cb3fd053d6404dfa128890",
+          "bytes": 1486
+        },
+        {
+          "source": "Workspace/skills/make_kong/grasp_test.md",
+          "destination": "grasp_test.md",
+          "git_blob_sha1": "cd4af26a60f229ad25c752cf6b03e944213ac17c",
+          "bytes": 1553
+        },
+        {
+          "source": "Workspace/skills/make_kong/grasp_test.py",
+          "destination": "grasp_test.py",
+          "git_blob_sha1": "2f418776058895c42f80ad3688249d53bbf5f760",
+          "bytes": 802
+        },
+        {
+          "source": "Workspace/skills/make_kong/push_tiles.md",
+          "destination": "push_tiles.md",
+          "git_blob_sha1": "d6a96053cb64438bd0800099c7c1a0af189b1603",
+          "bytes": 1393
+        },
+        {
+          "source": "Workspace/skills/make_kong/push_tiles.py",
+          "destination": "push_tiles.py",
+          "git_blob_sha1": "d914e235cc24e2766f1ee187f25d69c413a26119",
+          "bytes": 988
+        }
+      ]
+    },
+    "make_toast": {
+      "name": "Make Toast",
+      "task": "make_toast",
+      "files": [
+        {
+          "source": "Workspace/skills/make_toast/README.md",
+          "destination": "README.md",
+          "git_blob_sha1": "b22ccbedffae450c3d7eb539793ee1255e387c9f",
+          "bytes": 2278
+        },
+        {
+          "source": "Workspace/skills/make_toast/cartesian_servo.md",
+          "destination": "cartesian_servo.md",
+          "git_blob_sha1": "8672e5dc616ab05392a936f863ef588910715f06",
+          "bytes": 1718
+        },
+        {
+          "source": "Workspace/skills/make_toast/cartesian_servo.py",
+          "destination": "cartesian_servo.py",
+          "git_blob_sha1": "8721fc15ca95007374373f50d39043dd2b6148fe",
+          "bytes": 2172
+        },
+        {
+          "source": "Workspace/skills/make_toast/example.md",
+          "destination": "example.md",
+          "git_blob_sha1": "4a8cc99c4572c15478cb3fd053d6404dfa128890",
+          "bytes": 1486
+        },
+        {
+          "source": "Workspace/skills/make_toast/joint_waypoint.md",
+          "destination": "joint_waypoint.md",
+          "git_blob_sha1": "607b2733bc49efc6aa474f02ebded6be5e4c9717",
+          "bytes": 1536
+        },
+        {
+          "source": "Workspace/skills/make_toast/joint_waypoint.py",
+          "destination": "joint_waypoint.py",
+          "git_blob_sha1": "0e063f33072dc10f4de161779263b9f20c02afb8",
+          "bytes": 1636
+        },
+        {
+          "source": "Workspace/skills/make_toast/secure_lift_reorient.md",
+          "destination": "secure_lift_reorient.md",
+          "git_blob_sha1": "6fd464bef349e8ae9d1f1267a63c8139b0cde8df",
+          "bytes": 1784
+        },
+        {
+          "source": "Workspace/skills/make_toast/secure_lift_reorient.py",
+          "destination": "secure_lift_reorient.py",
+          "git_blob_sha1": "6189d73becc5bf53ec1e910cef05d73123acaa1a",
+          "bytes": 1237
+        },
+        {
+          "source": "Workspace/skills/make_toast/transfer_grasp.md",
+          "destination": "transfer_grasp.md",
+          "git_blob_sha1": "f129d29b03b6bd3c0523e6099d06245c00401f34",
+          "bytes": 1808
+        },
+        {
+          "source": "Workspace/skills/make_toast/transfer_grasp.py",
+          "destination": "transfer_grasp.py",
+          "git_blob_sha1": "b6c5d6e74310560dee518065d52c22a761572c8c",
+          "bytes": 1672
+        }
+      ]
+    },
+    "match_and_pick_from_conveyor": {
+      "name": "Match And Pick From Conveyor",
+      "task": "match_and_pick_from_conveyor",
+      "files": [
+        {
+          "source": "Workspace/skills/match_and_pick_from_conveyor/color_tracking.md",
+          "destination": "color_tracking.md",
+          "git_blob_sha1": "86eac22d3a1fe4d74ddef8eb594fd775fb5408ee",
+          "bytes": 1541
+        },
+        {
+          "source": "Workspace/skills/match_and_pick_from_conveyor/color_tracking.py",
+          "destination": "color_tracking.py",
+          "git_blob_sha1": "1c7ff4e078d633b87edd2651ea11a73057321b04",
+          "bytes": 732
+        },
+        {
+          "source": "Workspace/skills/match_and_pick_from_conveyor/conveyor_grasp.md",
+          "destination": "conveyor_grasp.md",
+          "git_blob_sha1": "be2391fb90e5e0de0f0c55e7bca21f6393634e59",
+          "bytes": 2857
+        },
+        {
+          "source": "Workspace/skills/match_and_pick_from_conveyor/conveyor_grasp.py",
+          "destination": "conveyor_grasp.py",
+          "git_blob_sha1": "f3ccf97a5e24020a6c93e681e92444e1cb4d8716",
+          "bytes": 2141
+        },
+        {
+          "source": "Workspace/skills/match_and_pick_from_conveyor/ee_servo.md",
+          "destination": "ee_servo.md",
+          "git_blob_sha1": "af123b38ab6a4c424e0a16658b262558538f87db",
+          "bytes": 1659
+        },
+        {
+          "source": "Workspace/skills/match_and_pick_from_conveyor/ee_servo.py",
+          "destination": "ee_servo.py",
+          "git_blob_sha1": "a05ef2526b998a6c574d94f5ebdd035ed2485c6d",
+          "bytes": 1608
+        },
+        {
+          "source": "Workspace/skills/match_and_pick_from_conveyor/example.md",
+          "destination": "example.md",
+          "git_blob_sha1": "4a8cc99c4572c15478cb3fd053d6404dfa128890",
+          "bytes": 1486
+        }
+      ]
+    },
+    "organize_table": {
+      "name": "Organize Table",
+      "task": "organize_table",
+      "files": [
+        {
+          "source": "Workspace/skills/organize_table/ee_control.md",
+          "destination": "ee_control.md",
+          "git_blob_sha1": "1ca1c00cd3fbf816fa9f06e11445823040f3fd6c",
+          "bytes": 3355
+        },
+        {
+          "source": "Workspace/skills/organize_table/ee_control.py",
+          "destination": "ee_control.py",
+          "git_blob_sha1": "01860f8bac6a1831a90eed3257fbdd8f3d011664",
+          "bytes": 4293
+        },
+        {
+          "source": "Workspace/skills/organize_table/example.md",
+          "destination": "example.md",
+          "git_blob_sha1": "4a8cc99c4572c15478cb3fd053d6404dfa128890",
+          "bytes": 1486
+        },
+        {
+          "source": "Workspace/skills/organize_table/placement_workflow.md",
+          "destination": "placement_workflow.md",
+          "git_blob_sha1": "59eb5ea193f19a1fa338d32debc0a011f575fc6b",
+          "bytes": 2407
+        }
+      ]
+    },
+    "pack_objects_into_box": {
+      "name": "Pack Objects Into Box",
+      "task": "pack_objects_into_box",
+      "files": [
+        {
+          "source": "Workspace/skills/pack_objects_into_box/README.md",
+          "destination": "README.md",
+          "git_blob_sha1": "b9e884a4e454233c0e2e79cdee7667f9236c4bfb",
+          "bytes": 2082
+        },
+        {
+          "source": "Workspace/skills/pack_objects_into_box/contact_grasp.md",
+          "destination": "contact_grasp.md",
+          "git_blob_sha1": "edaab1ed07d4b30a2e823904aef302c8bcfbc680",
+          "bytes": 1662
+        },
+        {
+          "source": "Workspace/skills/pack_objects_into_box/contact_grasp.py",
+          "destination": "contact_grasp.py",
+          "git_blob_sha1": "7e7521620f463d97322b8b270651d34e021bbe42",
+          "bytes": 1054
+        },
+        {
+          "source": "Workspace/skills/pack_objects_into_box/ee_motion.md",
+          "destination": "ee_motion.md",
+          "git_blob_sha1": "b610ad1358b0bd842b2cb385579952a880634b89",
+          "bytes": 1872
+        },
+        {
+          "source": "Workspace/skills/pack_objects_into_box/ee_motion.py",
+          "destination": "ee_motion.py",
+          "git_blob_sha1": "cecc924a27ac771f15186d8d0b9e904f52089853",
+          "bytes": 3527
+        },
+        {
+          "source": "Workspace/skills/pack_objects_into_box/example.md",
+          "destination": "example.md",
+          "git_blob_sha1": "4a8cc99c4572c15478cb3fd053d6404dfa128890",
+          "bytes": 1486
+        },
+        {
+          "source": "Workspace/skills/pack_objects_into_box/front_entry_place.md",
+          "destination": "front_entry_place.md",
+          "git_blob_sha1": "b016dc4442e4488e7b6857f1085a865349858c75",
+          "bytes": 2269
+        },
+        {
+          "source": "Workspace/skills/pack_objects_into_box/front_entry_place.py",
+          "destination": "front_entry_place.py",
+          "git_blob_sha1": "e62c4e3eda4f4074be60850aa2b7dcfb5165b7c2",
+          "bytes": 1122
+        }
+      ]
+    },
+    "pick_from_conveyor_by_image": {
+      "name": "Pick From Conveyor By Image",
+      "task": "pick_from_conveyor_by_image",
+      "files": [
+        {
+          "source": "Workspace/skills/pick_from_conveyor_by_image/README.md",
+          "destination": "README.md",
+          "git_blob_sha1": "dabc88f23326c6c3dca9ae7c8e04226441a17790",
+          "bytes": 1256
+        },
+        {
+          "source": "Workspace/skills/pick_from_conveyor_by_image/conveyor_interception.md",
+          "destination": "conveyor_interception.md",
+          "git_blob_sha1": "9b84ea63df76539eef303913fa2ad832b4508c12",
+          "bytes": 1956
+        },
+        {
+          "source": "Workspace/skills/pick_from_conveyor_by_image/ee_control.md",
+          "destination": "ee_control.md",
+          "git_blob_sha1": "fdeb5443834e1e20a0827b52604011fc4e0d127b",
+          "bytes": 2255
+        },
+        {
+          "source": "Workspace/skills/pick_from_conveyor_by_image/ee_control.py",
+          "destination": "ee_control.py",
+          "git_blob_sha1": "227857644a1479fd960c35e7d16cf7696532aaf8",
+          "bytes": 2038
+        },
+        {
+          "source": "Workspace/skills/pick_from_conveyor_by_image/example.md",
+          "destination": "example.md",
+          "git_blob_sha1": "4a8cc99c4572c15478cb3fd053d6404dfa128890",
+          "bytes": 1486
+        },
+        {
+          "source": "Workspace/skills/pick_from_conveyor_by_image/loaded_placement.md",
+          "destination": "loaded_placement.md",
+          "git_blob_sha1": "f6c56191041d581be1b5260b5417d7b6404923c9",
+          "bytes": 3033
+        },
+        {
+          "source": "Workspace/skills/pick_from_conveyor_by_image/rim_grasp.md",
+          "destination": "rim_grasp.md",
+          "git_blob_sha1": "59bff1f48aa832ea64af5d3aa8faa298ac87da8b",
+          "bytes": 1421
+        }
+      ]
+    },
+    "play_Xylophone": {
+      "name": "Play Xylophone",
+      "task": "play_Xylophone",
+      "files": [
+        {
+          "source": "Workspace/skills/play_Xylophone/ee_control.md",
+          "destination": "ee_control.md",
+          "git_blob_sha1": "459c2cc1314a458fa3701d6fdb62b2fbcaa5abae",
+          "bytes": 1710
+        },
+        {
+          "source": "Workspace/skills/play_Xylophone/ee_control.py",
+          "destination": "ee_control.py",
+          "git_blob_sha1": "c836ee6ece8a0ba299584ee1d1391cc17059f406",
+          "bytes": 1898
+        },
+        {
+          "source": "Workspace/skills/play_Xylophone/example.md",
+          "destination": "example.md",
+          "git_blob_sha1": "4a8cc99c4572c15478cb3fd053d6404dfa128890",
+          "bytes": 1486
+        },
+        {
+          "source": "Workspace/skills/play_Xylophone/mallet_workflow.md",
+          "destination": "mallet_workflow.md",
+          "git_blob_sha1": "e464fb282cbd68f50f2591de981f89781ac18874",
+          "bytes": 2268
+        },
+        {
+          "source": "Workspace/skills/play_Xylophone/retreat_strokes.md",
+          "destination": "retreat_strokes.md",
+          "git_blob_sha1": "761caec9950ae8885b952cc5b6cf47b8cdd7ec49",
+          "bytes": 2021
+        },
+        {
+          "source": "Workspace/skills/play_Xylophone/retreat_strokes.py",
+          "destination": "retreat_strokes.py",
+          "git_blob_sha1": "944689791ae62df0f965957a72c4c3c847335fd5",
+          "bytes": 1318
+        },
+        {
+          "source": "Workspace/skills/play_Xylophone/tap_sequence.md",
+          "destination": "tap_sequence.md",
+          "git_blob_sha1": "ea60e5abadc69a1e78c102e92b7d14c56802afae",
+          "bytes": 1804
+        },
+        {
+          "source": "Workspace/skills/play_Xylophone/tap_sequence.py",
+          "destination": "tap_sequence.py",
+          "git_blob_sha1": "da9f07bd2042a0c53ab78aa4cd9e75015b69cd9f",
+          "bytes": 2209
+        }
+      ]
+    },
+    "play_stacking_toy": {
+      "name": "Play Stacking Toy",
+      "task": "play_stacking_toy",
+      "files": [
+        {
+          "source": "Workspace/skills/play_stacking_toy/README.md",
+          "destination": "README.md",
+          "git_blob_sha1": "99397fb12f420b67bbaaed03a6c8dcb09951b594",
+          "bytes": 2132
+        },
+        {
+          "source": "Workspace/skills/play_stacking_toy/ee_servo.md",
+          "destination": "ee_servo.md",
+          "git_blob_sha1": "0c3e82a0af062ae530af11337c0d581ea42adf49",
+          "bytes": 2644
+        },
+        {
+          "source": "Workspace/skills/play_stacking_toy/ee_servo.py",
+          "destination": "ee_servo.py",
+          "git_blob_sha1": "81ccee41ff0869f4d3ba1211a9a3cdd1c54b7ff3",
+          "bytes": 2480
+        },
+        {
+          "source": "Workspace/skills/play_stacking_toy/example.md",
+          "destination": "example.md",
+          "git_blob_sha1": "4a8cc99c4572c15478cb3fd053d6404dfa128890",
+          "bytes": 1486
+        },
+        {
+          "source": "Workspace/skills/play_stacking_toy/gradual_place.md",
+          "destination": "gradual_place.md",
+          "git_blob_sha1": "ba230d15baae400182ed3369bc760195cb9c3afd",
+          "bytes": 1613
+        },
+        {
+          "source": "Workspace/skills/play_stacking_toy/gradual_place.py",
+          "destination": "gradual_place.py",
+          "git_blob_sha1": "8a7f014a9863035ed984d4b3b453a1f4417fb864",
+          "bytes": 1448
+        },
+        {
+          "source": "Workspace/skills/play_stacking_toy/rectangle_grasp.md",
+          "destination": "rectangle_grasp.md",
+          "git_blob_sha1": "bba0bc584d0eaf23a0bf47bf818977213c4407ad",
+          "bytes": 1778
+        },
+        {
+          "source": "Workspace/skills/play_stacking_toy/rectangle_grasp.py",
+          "destination": "rectangle_grasp.py",
+          "git_blob_sha1": "85b2ffcfbb460e9b3840a5611f8cd746d9b1ca8a",
+          "bytes": 2445
+        },
+        {
+          "source": "Workspace/skills/play_stacking_toy/wrist_color_servo.md",
+          "destination": "wrist_color_servo.md",
+          "git_blob_sha1": "7b54347ddeee23f5952e4504a4f2f892a816ffc4",
+          "bytes": 2745
+        },
+        {
+          "source": "Workspace/skills/play_stacking_toy/wrist_color_servo.py",
+          "destination": "wrist_color_servo.py",
+          "git_blob_sha1": "87bec6f1777b086180622164a7f143dd09798dc9",
+          "bytes": 2929
+        }
+      ]
+    },
+    "play_tic_tac_toe": {
+      "name": "Play Tic Tac Toe",
+      "task": "play_tic_tac_toe",
+      "files": [
+        {
+          "source": "Workspace/skills/play_tic_tac_toe/README.md",
+          "destination": "README.md",
+          "git_blob_sha1": "1ed9db9f65e5a7ecc4416ed415ddbc7c45d42ff6",
+          "bytes": 1416
+        },
+        {
+          "source": "Workspace/skills/play_tic_tac_toe/ee_motion.md",
+          "destination": "ee_motion.md",
+          "git_blob_sha1": "eb115dd7ad431baf9b085bf160837098bb75212b",
+          "bytes": 2347
+        },
+        {
+          "source": "Workspace/skills/play_tic_tac_toe/ee_motion.py",
+          "destination": "ee_motion.py",
+          "git_blob_sha1": "186b0de3dcefa0c7dc30e42badaa93d4266fe5c7",
+          "bytes": 2844
+        },
+        {
+          "source": "Workspace/skills/play_tic_tac_toe/example.md",
+          "destination": "example.md",
+          "git_blob_sha1": "4a8cc99c4572c15478cb3fd053d6404dfa128890",
+          "bytes": 1486
+        },
+        {
+          "source": "Workspace/skills/play_tic_tac_toe/home_and_wait.md",
+          "destination": "home_and_wait.md",
+          "git_blob_sha1": "dcd4bfca42bebdc5126cb5f411c32479ea8a0d74",
+          "bytes": 1106
+        },
+        {
+          "source": "Workspace/skills/play_tic_tac_toe/home_and_wait.py",
+          "destination": "home_and_wait.py",
+          "git_blob_sha1": "2f2766cb6e711a6de4f0e1b64220e531a2f41563",
+          "bytes": 976
+        },
+        {
+          "source": "Workspace/skills/play_tic_tac_toe/ring_turn.md",
+          "destination": "ring_turn.md",
+          "git_blob_sha1": "f2372929a6b21b4366376af724efd94c6624805e",
+          "bytes": 2641
+        },
+        {
+          "source": "Workspace/skills/play_tic_tac_toe/ring_turn.py",
+          "destination": "ring_turn.py",
+          "git_blob_sha1": "8a8c25a4e4f8cd5f12129d3245253c1a002e0989",
+          "bytes": 1990
+        }
+      ]
+    },
+    "plug_in_charger": {
+      "name": "Plug In Charger",
+      "task": "plug_in_charger",
+      "files": [
+        {
+          "source": "Workspace/skills/plug_in_charger/ee_move.md",
+          "destination": "ee_move.md",
+          "git_blob_sha1": "b5dcd6d3f4926f01197b0e41b1d667218a931bd8",
+          "bytes": 2044
+        },
+        {
+          "source": "Workspace/skills/plug_in_charger/ee_move.py",
+          "destination": "ee_move.py",
+          "git_blob_sha1": "d5ee8f13cc0ed0bd22c3d34de4af180d8a2c1556",
+          "bytes": 1643
+        },
+        {
+          "source": "Workspace/skills/plug_in_charger/example.md",
+          "destination": "example.md",
+          "git_blob_sha1": "4a8cc99c4572c15478cb3fd053d6404dfa128890",
+          "bytes": 1486
+        },
+        {
+          "source": "Workspace/skills/plug_in_charger/precision_insertion.md",
+          "destination": "precision_insertion.md",
+          "git_blob_sha1": "03f0d1ffb9536c720a8d47d9ca85bef6135c6313",
+          "bytes": 3932
+        }
+      ]
+    },
+    "pour_balls_into_vase": {
+      "name": "Pour Balls Into Vase",
+      "task": "pour_balls_into_vase",
+      "files": [
+        {
+          "source": "Workspace/skills/pour_balls_into_vase/cup_handling.md",
+          "destination": "cup_handling.md",
+          "git_blob_sha1": "d73b5777424bad5f2fc9826d0beb8b989cd3bdc2",
+          "bytes": 3219
+        },
+        {
+          "source": "Workspace/skills/pour_balls_into_vase/ee_control.md",
+          "destination": "ee_control.md",
+          "git_blob_sha1": "bb633639b5405dce57bec92e4082f35a9f1b06a2",
+          "bytes": 2389
+        },
+        {
+          "source": "Workspace/skills/pour_balls_into_vase/ee_control.py",
+          "destination": "ee_control.py",
+          "git_blob_sha1": "e1ecd8c7bc57de85d7bdfd0ccab42b6ac1214b09",
+          "bytes": 3460
+        },
+        {
+          "source": "Workspace/skills/pour_balls_into_vase/example.md",
+          "destination": "example.md",
+          "git_blob_sha1": "4a8cc99c4572c15478cb3fd053d6404dfa128890",
+          "bytes": 1486
+        }
+      ]
+    },
+    "pour_by_language": {
+      "name": "Pour By Language",
+      "task": "pour_by_language",
+      "files": [
+        {
+          "source": "Workspace/skills/pour_by_language/README.md",
+          "destination": "README.md",
+          "git_blob_sha1": "7466f7e8c0af3cd4fc5dd2c2a8c3e54306081153",
+          "bytes": 2430
+        },
+        {
+          "source": "Workspace/skills/pour_by_language/dual_ee_motion.md",
+          "destination": "dual_ee_motion.md",
+          "git_blob_sha1": "67dbd132d6bfe0fa408682aa8540b1b5dae820ff",
+          "bytes": 899
+        },
+        {
+          "source": "Workspace/skills/pour_by_language/dual_ee_motion.py",
+          "destination": "dual_ee_motion.py",
+          "git_blob_sha1": "91c5fe5e39ecb4cfca1d001a15aba7e504f20c93",
+          "bytes": 1774
+        },
+        {
+          "source": "Workspace/skills/pour_by_language/ee_motion.md",
+          "destination": "ee_motion.md",
+          "git_blob_sha1": "7507fbe4cc587b6de6b7cf2e01865c213d010374",
+          "bytes": 1550
+        },
+        {
+          "source": "Workspace/skills/pour_by_language/ee_motion.py",
+          "destination": "ee_motion.py",
+          "git_blob_sha1": "d0588f94588fd5486316a1924cf8bb6e24b51e1b",
+          "bytes": 2838
+        },
+        {
+          "source": "Workspace/skills/pour_by_language/example.md",
+          "destination": "example.md",
+          "git_blob_sha1": "4a8cc99c4572c15478cb3fd053d6404dfa128890",
+          "bytes": 1486
+        },
+        {
+          "source": "Workspace/skills/pour_by_language/place_bottle.md",
+          "destination": "place_bottle.md",
+          "git_blob_sha1": "8a00b4ad09be88ecac0591a17ad335188be3aec6",
+          "bytes": 1349
+        },
+        {
+          "source": "Workspace/skills/pour_by_language/place_bottle.py",
+          "destination": "place_bottle.py",
+          "git_blob_sha1": "6979ce2937b67b4bf5aeb9cdf04d8ff1ac754e3a",
+          "bytes": 1730
+        },
+        {
+          "source": "Workspace/skills/pour_by_language/pour_arc.md",
+          "destination": "pour_arc.md",
+          "git_blob_sha1": "9b505331095b2ff987f6bc37a115087d610dea2a",
+          "bytes": 1963
+        },
+        {
+          "source": "Workspace/skills/pour_by_language/pour_arc.py",
+          "destination": "pour_arc.py",
+          "git_blob_sha1": "607a5c2535c73de6bd89dec56717f4574d76b29e",
+          "bytes": 2033
+        },
+        {
+          "source": "Workspace/skills/pour_by_language/pour_sequence.md",
+          "destination": "pour_sequence.md",
+          "git_blob_sha1": "e5f00f445d52df8bbbc3b5e0411636a478d678ed",
+          "bytes": 1483
+        },
+        {
+          "source": "Workspace/skills/pour_by_language/pour_sequence.py",
+          "destination": "pour_sequence.py",
+          "git_blob_sha1": "3d29d3b61818524b3f13f19f93bb2d05ed960d2a",
+          "bytes": 1692
+        },
+        {
+          "source": "Workspace/skills/pour_by_language/return_home_joints.md",
+          "destination": "return_home_joints.md",
+          "git_blob_sha1": "2fdb780ca330a4e176f3c4b81234418c08d0d3c7",
+          "bytes": 1023
+        },
+        {
+          "source": "Workspace/skills/pour_by_language/return_home_joints.py",
+          "destination": "return_home_joints.py",
+          "git_blob_sha1": "9abe0776b7116dd690d2e32e2e34fe8c4367cb6d",
+          "bytes": 1156
+        },
+        {
+          "source": "Workspace/skills/pour_by_language/side_pour.md",
+          "destination": "side_pour.md",
+          "git_blob_sha1": "d2ec2402e46252087bec983d554cdda91bfe149c",
+          "bytes": 2141
+        },
+        {
+          "source": "Workspace/skills/pour_by_language/side_pour.py",
+          "destination": "side_pour.py",
+          "git_blob_sha1": "c40a556f03145cfcff67594513641379d50202a3",
+          "bytes": 1235
+        }
+      ]
+    },
+    "pour_liquid_into_cup": {
+      "name": "Pour Liquid Into Cup",
+      "task": "pour_liquid_into_cup",
+      "files": [
+        {
+          "source": "Workspace/skills/pour_liquid_into_cup/ee_motion.md",
+          "destination": "ee_motion.md",
+          "git_blob_sha1": "b086fbe56e3fda766edf79c7789d38324b401b51",
+          "bytes": 2630
+        },
+        {
+          "source": "Workspace/skills/pour_liquid_into_cup/ee_motion.py",
+          "destination": "ee_motion.py",
+          "git_blob_sha1": "f949f80fb91b50f946662a630400f6079a5628b0",
+          "bytes": 2979
+        },
+        {
+          "source": "Workspace/skills/pour_liquid_into_cup/example.md",
+          "destination": "example.md",
+          "git_blob_sha1": "4a8cc99c4572c15478cb3fd053d6404dfa128890",
+          "bytes": 1486
+        },
+        {
+          "source": "Workspace/skills/pour_liquid_into_cup/pouring.md",
+          "destination": "pouring.md",
+          "git_blob_sha1": "ddef80d54c8e5fe32828ab4b229ba6dd39182b6a",
+          "bytes": 3660
+        }
+      ]
+    },
+    "press_by_number": {
+      "name": "Press By Number",
+      "task": "press_by_number",
+      "files": [
+        {
+          "source": "Workspace/skills/press_by_number/counted_press.md",
+          "destination": "counted_press.md",
+          "git_blob_sha1": "27181b4bde9a233e52357f5b1b21424f361b96b6",
+          "bytes": 3181
+        },
+        {
+          "source": "Workspace/skills/press_by_number/counted_press.py",
+          "destination": "counted_press.py",
+          "git_blob_sha1": "aeb06f32b33f8bf9c614398d2f7770fb8bc2e849",
+          "bytes": 1787
+        },
+        {
+          "source": "Workspace/skills/press_by_number/ee_motion.md",
+          "destination": "ee_motion.md",
+          "git_blob_sha1": "a493189ff281645c089d3f728ad11afb80794d56",
+          "bytes": 1400
+        },
+        {
+          "source": "Workspace/skills/press_by_number/ee_motion.py",
+          "destination": "ee_motion.py",
+          "git_blob_sha1": "a6c84908e4b417d85cbb4da108b8ce7e588f6139",
+          "bytes": 2161
+        },
+        {
+          "source": "Workspace/skills/press_by_number/example.md",
+          "destination": "example.md",
+          "git_blob_sha1": "4a8cc99c4572c15478cb3fd053d6404dfa128890",
+          "bytes": 1486
+        }
+      ]
+    },
+    "push_T": {
+      "name": "Push T",
+      "task": "push_T",
+      "files": [
+        {
+          "source": "Workspace/skills/push_T/ee_motion.md",
+          "destination": "ee_motion.md",
+          "git_blob_sha1": "166250813a4995ecd2c528664af01f96217bf75f",
+          "bytes": 2106
+        },
+        {
+          "source": "Workspace/skills/push_T/ee_motion.py",
+          "destination": "ee_motion.py",
+          "git_blob_sha1": "b53b4ea0a1d5b18ce29bcc34205d9634bcc093ee",
+          "bytes": 1851
+        },
+        {
+          "source": "Workspace/skills/push_T/example.md",
+          "destination": "example.md",
+          "git_blob_sha1": "4a8cc99c4572c15478cb3fd053d6404dfa128890",
+          "bytes": 1486
+        },
+        {
+          "source": "Workspace/skills/push_T/planar_slide.md",
+          "destination": "planar_slide.md",
+          "git_blob_sha1": "0e167cd3e47377a1281483390dca2219184a7abf",
+          "bytes": 3764
+        },
+        {
+          "source": "Workspace/skills/push_T/planar_slide.py",
+          "destination": "planar_slide.py",
+          "git_blob_sha1": "aac8f3ed0cc0ebc2d30c14419285c63a36de1f70",
+          "bytes": 1667
+        }
+      ]
+    },
+    "put_bottles_into_dustbin": {
+      "name": "Put Bottles Into Dustbin",
+      "task": "put_bottles_into_dustbin",
+      "files": [
+        {
+          "source": "Workspace/skills/put_bottles_into_dustbin/color_servo.md",
+          "destination": "color_servo.md",
+          "git_blob_sha1": "1827a1cb47b52eb079cb1bfdf52d64347884a609",
+          "bytes": 1528
+        },
+        {
+          "source": "Workspace/skills/put_bottles_into_dustbin/color_servo.py",
+          "destination": "color_servo.py",
+          "git_blob_sha1": "6ab125869c32fbb29b15e686f4a4815707b90c70",
+          "bytes": 1296
+        },
+        {
+          "source": "Workspace/skills/put_bottles_into_dustbin/ee_control.md",
+          "destination": "ee_control.md",
+          "git_blob_sha1": "1c132173f4b5efed375c2bb128bc135c90c5c236",
+          "bytes": 2096
+        },
+        {
+          "source": "Workspace/skills/put_bottles_into_dustbin/ee_control.py",
+          "destination": "ee_control.py",
+          "git_blob_sha1": "4c40e330d144143c699afe42c929633fa1d59dcf",
+          "bytes": 3405
+        },
+        {
+          "source": "Workspace/skills/put_bottles_into_dustbin/example.md",
+          "destination": "example.md",
+          "git_blob_sha1": "4a8cc99c4572c15478cb3fd053d6404dfa128890",
+          "bytes": 1486
+        },
+        {
+          "source": "Workspace/skills/put_bottles_into_dustbin/supported_transfer.md",
+          "destination": "supported_transfer.md",
+          "git_blob_sha1": "86ab720766d6a17c2f2e4287e2a5bddec8088db6",
+          "bytes": 1605
+        },
+        {
+          "source": "Workspace/skills/put_bottles_into_dustbin/supported_transfer.py",
+          "destination": "supported_transfer.py",
+          "git_blob_sha1": "5fdf99654caef0076e4af73444f5f9854f1a8085",
+          "bytes": 885
+        }
+      ]
+    },
+    "solve_equation": {
+      "name": "Solve Equation",
+      "task": "solve_equation",
+      "files": [
+        {
+          "source": "Workspace/skills/solve_equation/ee_motion.md",
+          "destination": "ee_motion.md",
+          "git_blob_sha1": "e7d3a62577898c34b0798ed896d9fcbd6aab32fd",
+          "bytes": 2997
+        },
+        {
+          "source": "Workspace/skills/solve_equation/ee_motion.py",
+          "destination": "ee_motion.py",
+          "git_blob_sha1": "c0655ab97171e9c070a8c6dc30634baaf51f63d6",
+          "bytes": 3023
+        },
+        {
+          "source": "Workspace/skills/solve_equation/example.md",
+          "destination": "example.md",
+          "git_blob_sha1": "4a8cc99c4572c15478cb3fd053d6404dfa128890",
+          "bytes": 1486
+        },
+        {
+          "source": "Workspace/skills/solve_equation/flat_tile_transfer.md",
+          "destination": "flat_tile_transfer.md",
+          "git_blob_sha1": "80c69e029df156c94866218e813050d0884c0955",
+          "bytes": 3774
+        }
+      ]
+    },
+    "sort_nesting_dolls_by_size": {
+      "name": "Sort Nesting Dolls By Size",
+      "task": "sort_nesting_dolls_by_size",
+      "files": [
+        {
+          "source": "Workspace/skills/sort_nesting_dolls_by_size/ee_motion.md",
+          "destination": "ee_motion.md",
+          "git_blob_sha1": "2f5386080d7fe81f0f04e88d43181474794a4c3e",
+          "bytes": 2482
+        },
+        {
+          "source": "Workspace/skills/sort_nesting_dolls_by_size/ee_motion.py",
+          "destination": "ee_motion.py",
+          "git_blob_sha1": "639c4bd4ae08dcfca9fe316a742aad7bbfc25b99",
+          "bytes": 2884
+        },
+        {
+          "source": "Workspace/skills/sort_nesting_dolls_by_size/example.md",
+          "destination": "example.md",
+          "git_blob_sha1": "4a8cc99c4572c15478cb3fd053d6404dfa128890",
+          "bytes": 1486
+        },
+        {
+          "source": "Workspace/skills/sort_nesting_dolls_by_size/pick_place.md",
+          "destination": "pick_place.md",
+          "git_blob_sha1": "b992289aa0775e69d328798a43215d66576ef53b",
+          "bytes": 2214
+        },
+        {
+          "source": "Workspace/skills/sort_nesting_dolls_by_size/pick_place.py",
+          "destination": "pick_place.py",
+          "git_blob_sha1": "be5f9a5e59b3c23f986649178e0fb1bce2b8c572",
+          "bytes": 2193
+        },
+        {
+          "source": "Workspace/skills/sort_nesting_dolls_by_size/sorting_upright_objects.md",
+          "destination": "sorting_upright_objects.md",
+          "git_blob_sha1": "2663fd8105fd91a14592c176fbc93714f05bab1b",
+          "bytes": 3033
+        }
+      ]
+    },
+    "stack_blocks": {
+      "name": "Stack Blocks",
+      "task": "stack_blocks",
+      "files": [
+        {
+          "source": "Workspace/skills/stack_blocks/ee_motion.md",
+          "destination": "ee_motion.md",
+          "git_blob_sha1": "5341efffaa6f7b0585f728fdbf8148d206ef29c1",
+          "bytes": 1990
+        },
+        {
+          "source": "Workspace/skills/stack_blocks/ee_motion.py",
+          "destination": "ee_motion.py",
+          "git_blob_sha1": "78a3902d9b7d8d243ab64c4ab71f7ea0f22037fd",
+          "bytes": 3020
+        },
+        {
+          "source": "Workspace/skills/stack_blocks/example.md",
+          "destination": "example.md",
+          "git_blob_sha1": "4a8cc99c4572c15478cb3fd053d6404dfa128890",
+          "bytes": 1486
+        },
+        {
+          "source": "Workspace/skills/stack_blocks/joint_return.md",
+          "destination": "joint_return.md",
+          "git_blob_sha1": "d622e3b534e33f1afd861d2c5700ef5f03f65d6a",
+          "bytes": 1186
+        },
+        {
+          "source": "Workspace/skills/stack_blocks/joint_return.py",
+          "destination": "joint_return.py",
+          "git_blob_sha1": "f504d2bd666461682c86476d78c416ce4c1d5481",
+          "bytes": 1465
+        },
+        {
+          "source": "Workspace/skills/stack_blocks/pick_place.md",
+          "destination": "pick_place.md",
+          "git_blob_sha1": "6b967258154a45f5e7154212c8ac2e49f79d9726",
+          "bytes": 2337
+        },
+        {
+          "source": "Workspace/skills/stack_blocks/pick_place.py",
+          "destination": "pick_place.py",
+          "git_blob_sha1": "c2db4c56480af4c3db243de0b7c0794c166ea0ed",
+          "bytes": 1981
+        }
+      ]
+    },
+    "stack_blocks_by_language": {
+      "name": "Stack Blocks By Language",
+      "task": "stack_blocks_by_language",
+      "files": [
+        {
+          "source": "Workspace/skills/stack_blocks_by_language/ee_control.md",
+          "destination": "ee_control.md",
+          "git_blob_sha1": "b91393d2e0ee20216a5038df85e945d2825beced",
+          "bytes": 1885
+        },
+        {
+          "source": "Workspace/skills/stack_blocks_by_language/ee_control.py",
+          "destination": "ee_control.py",
+          "git_blob_sha1": "f43895124e0a59031002767634163b2b016c55b7",
+          "bytes": 1819
+        },
+        {
+          "source": "Workspace/skills/stack_blocks_by_language/example.md",
+          "destination": "example.md",
+          "git_blob_sha1": "4a8cc99c4572c15478cb3fd053d6404dfa128890",
+          "bytes": 1486
+        },
+        {
+          "source": "Workspace/skills/stack_blocks_by_language/pick_with_test_lift.md",
+          "destination": "pick_with_test_lift.md",
+          "git_blob_sha1": "a842a76bcf7368de21900deb4c8ce9fcd99c3ea3",
+          "bytes": 1528
+        },
+        {
+          "source": "Workspace/skills/stack_blocks_by_language/pick_with_test_lift.py",
+          "destination": "pick_with_test_lift.py",
+          "git_blob_sha1": "b3e44fdec781c065aa4c7088d9e4f140dc08446c",
+          "bytes": 1035
+        }
+      ]
+    },
+    "stack_bowls": {
+      "name": "Stack Bowls",
+      "task": "stack_bowls",
+      "files": [
+        {
+          "source": "Workspace/skills/stack_bowls/cartesian_path.md",
+          "destination": "cartesian_path.md",
+          "git_blob_sha1": "8b0e54ec122e5780b021182af2af51706a565324",
+          "bytes": 1387
+        },
+        {
+          "source": "Workspace/skills/stack_bowls/cartesian_path.py",
+          "destination": "cartesian_path.py",
+          "git_blob_sha1": "60510a00bdc4f81821a82e54adae2230c940d318",
+          "bytes": 809
+        },
+        {
+          "source": "Workspace/skills/stack_bowls/ee_move.md",
+          "destination": "ee_move.md",
+          "git_blob_sha1": "3a5e703f9a1de1d7d563a80dfbdcee5bea28e19c",
+          "bytes": 1229
+        },
+        {
+          "source": "Workspace/skills/stack_bowls/ee_move.py",
+          "destination": "ee_move.py",
+          "git_blob_sha1": "453583e8b21f2e96eae7e75ad06a2135d56a38b5",
+          "bytes": 1329
+        },
+        {
+          "source": "Workspace/skills/stack_bowls/example.md",
+          "destination": "example.md",
+          "git_blob_sha1": "4a8cc99c4572c15478cb3fd053d6404dfa128890",
+          "bytes": 1486
+        },
+        {
+          "source": "Workspace/skills/stack_bowls/front_rim_stacking.md",
+          "destination": "front_rim_stacking.md",
+          "git_blob_sha1": "b326290b1488acd548c3763e3112753bfb7a792f",
+          "bytes": 2983
+        },
+        {
+          "source": "Workspace/skills/stack_bowls/reorient_ee.md",
+          "destination": "reorient_ee.md",
+          "git_blob_sha1": "ae3d45a942b93013ee686e27df6592dfe0a8344b",
+          "bytes": 1176
+        },
+        {
+          "source": "Workspace/skills/stack_bowls/reorient_ee.py",
+          "destination": "reorient_ee.py",
+          "git_blob_sha1": "cfc25393c6bbd261b191de1320c566abbf9b2638",
+          "bytes": 1312
+        },
+        {
+          "source": "Workspace/skills/stack_bowls/servo_translation.md",
+          "destination": "servo_translation.md",
+          "git_blob_sha1": "1ca6a0a7dbddbb5a7b375cfbe8d4f117c84bb5b2",
+          "bytes": 1352
+        },
+        {
+          "source": "Workspace/skills/stack_bowls/servo_translation.py",
+          "destination": "servo_translation.py",
+          "git_blob_sha1": "013f40933bd84a17f33de78e7282a94ca3a906e1",
+          "bytes": 1436
+        }
+      ]
+    },
+    "store_laptop_and_headphones": {
+      "name": "Store Laptop And Headphones",
+      "task": "store_laptop_and_headphones",
+      "files": [
+        {
+          "source": "Workspace/skills/store_laptop_and_headphones/README.md",
+          "destination": "README.md",
+          "git_blob_sha1": "15d2b831878314a19b6f8e0acc6c133bd515f739",
+          "bytes": 1362
+        },
+        {
+          "source": "Workspace/skills/store_laptop_and_headphones/ee_move.md",
+          "destination": "ee_move.md",
+          "git_blob_sha1": "87d4b2e1317a628ad7809b27075ea28789a769b0",
+          "bytes": 1409
+        },
+        {
+          "source": "Workspace/skills/store_laptop_and_headphones/ee_move.py",
+          "destination": "ee_move.py",
+          "git_blob_sha1": "cba2b86b0a68602dcbbb63d1920277c366624d93",
+          "bytes": 1612
+        },
+        {
+          "source": "Workspace/skills/store_laptop_and_headphones/ee_smooth.md",
+          "destination": "ee_smooth.md",
+          "git_blob_sha1": "7068a0461ba2d8cb1214702e9f0590575821596f",
+          "bytes": 1894
+        },
+        {
+          "source": "Workspace/skills/store_laptop_and_headphones/ee_smooth.py",
+          "destination": "ee_smooth.py",
+          "git_blob_sha1": "703daa8b4eda92a6d3f2edf4a12d1f08fc1d6dd7",
+          "bytes": 1605
+        },
+        {
+          "source": "Workspace/skills/store_laptop_and_headphones/example.md",
+          "destination": "example.md",
+          "git_blob_sha1": "4a8cc99c4572c15478cb3fd053d6404dfa128890",
+          "bytes": 1486
+        }
+      ]
+    },
+    "store_tools_in_toolbox": {
+      "name": "Store Tools In Toolbox",
+      "task": "store_tools_in_toolbox",
+      "files": [
+        {
+          "source": "Workspace/skills/store_tools_in_toolbox/README.md",
+          "destination": "README.md",
+          "git_blob_sha1": "5d95e4004a9b74d2775d9a64ef4335040412bf85",
+          "bytes": 2713
+        },
+        {
+          "source": "Workspace/skills/store_tools_in_toolbox/cartesian_servo.md",
+          "destination": "cartesian_servo.md",
+          "git_blob_sha1": "290d06b757b2f969039b46012f7c11e651d0b9e4",
+          "bytes": 1171
+        },
+        {
+          "source": "Workspace/skills/store_tools_in_toolbox/cartesian_servo.py",
+          "destination": "cartesian_servo.py",
+          "git_blob_sha1": "85d51aafb9e8fbd1e9d9fd3440023b64812106b9",
+          "bytes": 1311
+        },
+        {
+          "source": "Workspace/skills/store_tools_in_toolbox/dual_pose_servo.md",
+          "destination": "dual_pose_servo.md",
+          "git_blob_sha1": "e4d56be4adfb54e72a17f986835196d74090289f",
+          "bytes": 1136
+        },
+        {
+          "source": "Workspace/skills/store_tools_in_toolbox/dual_pose_servo.py",
+          "destination": "dual_pose_servo.py",
+          "git_blob_sha1": "aa85c7ac1c04e5b95d3c5d2a84100137f77190cf",
+          "bytes": 1773
+        },
+        {
+          "source": "Workspace/skills/store_tools_in_toolbox/ee_motion.md",
+          "destination": "ee_motion.md",
+          "git_blob_sha1": "0037128f2c18dd7e09a475188d0f2b1a81add038",
+          "bytes": 1392
+        },
+        {
+          "source": "Workspace/skills/store_tools_in_toolbox/ee_motion.py",
+          "destination": "ee_motion.py",
+          "git_blob_sha1": "f6a9b79b524dfc97dc5343437845797d221badb3",
+          "bytes": 1504
+        },
+        {
+          "source": "Workspace/skills/store_tools_in_toolbox/example.md",
+          "destination": "example.md",
+          "git_blob_sha1": "4a8cc99c4572c15478cb3fd053d6404dfa128890",
+          "bytes": 1486
+        },
+        {
+          "source": "Workspace/skills/store_tools_in_toolbox/pose_servo.md",
+          "destination": "pose_servo.md",
+          "git_blob_sha1": "0206596edc2c714d8ded32164dd30b2e4eb27ff0",
+          "bytes": 1401
+        },
+        {
+          "source": "Workspace/skills/store_tools_in_toolbox/pose_servo.py",
+          "destination": "pose_servo.py",
+          "git_blob_sha1": "df54f3e93f344d2c3d04586ec4fcdd22d39a2fc1",
+          "bytes": 1950
+        },
+        {
+          "source": "Workspace/skills/store_tools_in_toolbox/release_withdraw.md",
+          "destination": "release_withdraw.md",
+          "git_blob_sha1": "75ce7b4e05409279d8de52ba58b2c7e49ce36d69",
+          "bytes": 1551
+        },
+        {
+          "source": "Workspace/skills/store_tools_in_toolbox/release_withdraw.py",
+          "destination": "release_withdraw.py",
+          "git_blob_sha1": "474ba6937e0cf3cce23d2cf59bb2117daaf9d211",
+          "bytes": 1133
+        }
+      ]
+    },
+    "swap_T": {
+      "name": "Swap T",
+      "task": "swap_T",
+      "files": [
+        {
+          "source": "Workspace/skills/swap_T/README.md",
+          "destination": "README.md",
+          "git_blob_sha1": "6a2ccb83bec4320e8c38f58f588466579a7e05ff",
+          "bytes": 1500
+        },
+        {
+          "source": "Workspace/skills/swap_T/ee_motion.md",
+          "destination": "ee_motion.md",
+          "git_blob_sha1": "762312344c034a264d82ebec8fc57815c9e790ea",
+          "bytes": 2568
+        },
+        {
+          "source": "Workspace/skills/swap_T/ee_motion.py",
+          "destination": "ee_motion.py",
+          "git_blob_sha1": "d33c229aacfa73fbcc4e28b9cdbe3b0ab281eaf7",
+          "bytes": 3691
+        },
+        {
+          "source": "Workspace/skills/swap_T/example.md",
+          "destination": "example.md",
+          "git_blob_sha1": "4a8cc99c4572c15478cb3fd053d6404dfa128890",
+          "bytes": 1486
+        }
+      ]
+    },
+    "swap_blocks": {
+      "name": "Swap Blocks",
+      "task": "swap_blocks",
+      "files": [
+        {
+          "source": "Workspace/skills/swap_blocks/README.md",
+          "destination": "README.md",
+          "git_blob_sha1": "dd751a9ebcd458422ade0870a229707895e7ff22",
+          "bytes": 1485
+        },
+        {
+          "source": "Workspace/skills/swap_blocks/ee_motion.md",
+          "destination": "ee_motion.md",
+          "git_blob_sha1": "55fe9a7e616d46233f8f5811b98ee5478ddeacdd",
+          "bytes": 1892
+        },
+        {
+          "source": "Workspace/skills/swap_blocks/ee_motion.py",
+          "destination": "ee_motion.py",
+          "git_blob_sha1": "849d92d99823d7e02aab5c9287bf315bb5a4e388",
+          "bytes": 2051
+        },
+        {
+          "source": "Workspace/skills/swap_blocks/example.md",
+          "destination": "example.md",
+          "git_blob_sha1": "4a8cc99c4572c15478cb3fd053d6404dfa128890",
+          "bytes": 1486
+        },
+        {
+          "source": "Workspace/skills/swap_blocks/joint_motion.md",
+          "destination": "joint_motion.md",
+          "git_blob_sha1": "d347f55280c83c9d65071a7e82187ef2f47b8f97",
+          "bytes": 1299
+        },
+        {
+          "source": "Workspace/skills/swap_blocks/joint_motion.py",
+          "destination": "joint_motion.py",
+          "git_blob_sha1": "f77820debab5532075b53ff2c25080c1e52cac17",
+          "bytes": 1367
+        },
+        {
+          "source": "Workspace/skills/swap_blocks/manipulation.md",
+          "destination": "manipulation.md",
+          "git_blob_sha1": "ed17f97ba9eb9e97a13f0693d6a0f51fc9cad4cf",
+          "bytes": 2026
+        }
+      ]
+    },
+    "sweep_blocks": {
+      "name": "Sweep Blocks",
+      "task": "sweep_blocks",
+      "files": [
+        {
+          "source": "Workspace/skills/sweep_blocks/README.md",
+          "destination": "README.md",
+          "git_blob_sha1": "b62a20d070825b2e6aba4b768b59b208dbea28a9",
+          "bytes": 1295
+        },
+        {
+          "source": "Workspace/skills/sweep_blocks/example.md",
+          "destination": "example.md",
+          "git_blob_sha1": "4a8cc99c4572c15478cb3fd053d6404dfa128890",
+          "bytes": 1486
+        },
+        {
+          "source": "Workspace/skills/sweep_blocks/place_release.md",
+          "destination": "place_release.md",
+          "git_blob_sha1": "594cef805a767c7059d0cdcf35b34d38e7d016c6",
+          "bytes": 1474
+        },
+        {
+          "source": "Workspace/skills/sweep_blocks/place_release.py",
+          "destination": "place_release.py",
+          "git_blob_sha1": "9be67980b9ca667e1b6c4b6d4008719595f8fd5e",
+          "bytes": 640
+        },
+        {
+          "source": "Workspace/skills/sweep_blocks/pose_servo.md",
+          "destination": "pose_servo.md",
+          "git_blob_sha1": "8dceff8ff20e94c0ee7c5391f644752d9bfce99e",
+          "bytes": 1777
+        },
+        {
+          "source": "Workspace/skills/sweep_blocks/pose_servo.py",
+          "destination": "pose_servo.py",
+          "git_blob_sha1": "188e6cfb6e91bd07bd5f5b9409462c5ace489066",
+          "bytes": 1667
+        },
+        {
+          "source": "Workspace/skills/sweep_blocks/slow_pose_servo.md",
+          "destination": "slow_pose_servo.md",
+          "git_blob_sha1": "87d1906c029cf1592052f7627e075d12de660886",
+          "bytes": 1781
+        },
+        {
+          "source": "Workspace/skills/sweep_blocks/slow_pose_servo.py",
+          "destination": "slow_pose_servo.py",
+          "git_blob_sha1": "43992c2217c81bc3ba4c780bfa240a962c6a7973",
+          "bytes": 1938
+        }
+      ]
+    }
+  }
+}

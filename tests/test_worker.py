@@ -8,9 +8,9 @@ import tempfile
 import unittest
 import sys
 from unittest.mock import patch
+sys.path.insert(0,str(Path(__file__).parents[1]/'worker-agent'))
 spec=importlib.util.spec_from_file_location('core',Path(__file__).parents[1]/'worker-agent/core.py')
 core=importlib.util.module_from_spec(spec);spec.loader.exec_module(core)
-sys.path.insert(0,str(Path(__file__).parents[1]/'worker-agent'))
 import yam_trial
 from yam_trial import AttributedSessionAPI,LiveCameraRecorder
 class WorkerTests(unittest.TestCase):
@@ -74,11 +74,21 @@ class WorkerTests(unittest.TestCase):
    invalid=dict(base);invalid.pop(field)
    with self.assertRaises(ValueError):core.validate_job(invalid)
  def test_physical_jobs_require_runner_identity(self):
-  job={'id':'00000000-0000-0000-0000-000000000001','campaign':'00000000-0000-0000-0000-000000000002','kind':'hardware','method':'EmbodiedEvo','execution_mode':'physical YAM','runner_name':'Ada Operator','email':'ada@example.com','config':{'task':'stack_blocks','model':'gpt-6-astra','effort':'xhigh','pins':core.PINS,'budget':1,'scenes':1,'seed':0,'seconds':60},'hardware':{'method':'EmbodiedEvo','robot':'yam-1','task':'stack the blue cube','seconds':600,'budget':100,'runner_name':'Ada Operator','email':'ada@example.com'},'artifact':'00000000-0000-0000-0000-000000000003'}
+  job={'id':'00000000-0000-0000-0000-000000000001','campaign':'00000000-0000-0000-0000-000000000002','kind':'hardware','method':'EmbodiedEvo','execution_mode':'physical YAM','runner_name':'Ada Operator','email':'ada@example.com','config':{'task':'stack_blocks','model':'gpt-6-astra','effort':'xhigh','pins':core.PINS,'budget':100,'scenes':1,'seed':0,'seconds':600,'direct_yam':True,'skill_id':'stack_blocks','skill_library_revision':core.SKILL_LIBRARY_REVISION},'hardware':{'method':'EmbodiedEvo','robot':'yam-1','task':'stack the blue cube','seconds':600,'budget':100,'runner_name':'Ada Operator','email':'ada@example.com','source':'upstream_skill_library','skill_id':'stack_blocks','skill_library_revision':core.SKILL_LIBRARY_REVISION}}
   self.assertIs(core.validate_job(job),job)
   for field in ('runner_name','email'):
    invalid=json.loads(json.dumps(job));invalid['hardware'].pop(field)
    with self.assertRaises(ValueError):core.validate_job(invalid)
+  for field,value in [('source','simulator_frozen_package'),('skill_id','cover_blocks'),('skill_library_revision','0'*40)]:
+   invalid=json.loads(json.dumps(job));invalid['hardware'][field]=value
+   with self.assertRaises(ValueError):core.validate_job(invalid)
+ def test_upstream_skill_manifest_is_bounded_and_hash_uses_git_blob_format(self):
+  from skill_library import SKILLS,git_blob_sha1,skill_manifest
+  import hashlib
+  self.assertGreaterEqual(len(SKILLS),40)
+  self.assertEqual(git_blob_sha1(b'example'),hashlib.sha1(b'blob 7\0example').hexdigest())
+  self.assertEqual(skill_manifest('stack_blocks')['revision'],core.SKILL_LIBRARY_REVISION)
+  with self.assertRaises(ValueError):skill_manifest('../../outside')
  def test_attributed_session_api_forwards_confirmed_human_fields(self):
   class Stub:
    supports_trajectories=True

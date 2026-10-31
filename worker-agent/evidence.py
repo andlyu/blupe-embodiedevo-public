@@ -21,8 +21,8 @@ def publish_evidence(client,job,run):
                     folder=root/'recorded';folder.mkdir(exist_ok=True)
                     listing=folder/(role+'.txt');listing.write_text(''.join("file '"+str(p)+"'\n" for p in pieces))
                     path=folder/(role+'.mp4')
-                    native=Path(__file__).resolve().parents[1]/'upstream/EmbodiedEvo/.venv-robodojo/bin/python'
-                    ffmpeg=subprocess.check_output([str(native),'-c','import imageio_ffmpeg;print(imageio_ffmpeg.get_ffmpeg_exe())'],text=True,timeout=10).strip()
+                    import imageio_ffmpeg
+                    ffmpeg=imageio_ffmpeg.get_ffmpeg_exe()
                     subprocess.run([ffmpeg,'-y','-v','error','-f','concat','-safe','0','-i',str(listing),'-c','copy',str(path)],check=True,timeout=60)
             if path.is_file():upload(client,job['id'],f'{name}-{role}.mp4',path.read_bytes(),'video/mp4')
         for path in sorted((episode/'workspace/observations').glob('*/code.py')):

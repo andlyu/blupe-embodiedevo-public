@@ -1,21 +1,28 @@
 # BluPe × EmbodiedEvo
 
-An independent public website for hosting the EmbodiedEvo workflow on BluPe Remote YAM. It is separate from the existing BluPe app.
+An independent public website for using EmbodiedEvo’s published simulation-learned skills directly on BluPe Remote YAM. It is separate from the existing BluPe app.
 
 - Website: https://blupe-embodiedevo.andlyu.chatgpt.site/
-- Public source snapshot: https://github.com/andlyu/blupe-embodiedevo-public
-- Upstream method: [Einsia/EmbodiedEvo](https://github.com/Einsia/EmbodiedEvo)
+- Public source: https://github.com/andlyu/blupe-embodiedevo-public
+- Upstream method and skill library: [Einsia/EmbodiedEvo](https://github.com/Einsia/EmbodiedEvo)
 
-The website exposes a view-only demo to visitors. Campaign data, model runs, live YAM cameras, physical runs and recordings remain protected behind an exact operator allowlist. A compute worker is not started by opening the website. The current integration has not yet verified a successful method-driven physical YAM task; simulator results and physical outcomes must be reported separately.
+## Direct YAM workflow
 
-## What the code contains
+The site lists the task skill sets published under `Workspace/skills/`. The selected files are downloaded from a pinned upstream commit and verified against their Git blob hashes. A fresh EmbodiedEvo coding session receives those files as read-only context, alongside the BluPe YAM primitives and measured physical observations. It must adapt the learned approach to the real task; it does not replay simulated coordinates or execute a RoboDojo helper unchanged.
 
-- A campaign UI and durable D1 records for Practice, frozen knowledge and fresh simulation Tests.
-- A worker that calls the pinned upstream EmbodiedEvo orchestration and stores native observations, outcomes and replay artifacts.
-- A physical YAM adapter built on the pinned BluPe controller, with fresh measured feedback, bounded paired-arm commands, Stop handling and camera recording.
-- Operator-only API checks and worker-token authentication. Public visitors cannot create campaigns, inspect private run records, read live cameras or start compute and robot jobs.
+Users choose a skill set, describe the matching objects arranged on YAM, confirm their run attribution, and submit a bounded physical session through the normal BluPe queue. The integration keeps station readiness, worker qualification, lease limits, command validation, Stop, normal release, protected run history and physical evidence. Limits are at most 600 seconds and 100 code executions. Task success remains unknown until an operator reviews the physical evidence.
 
-Git submodules pin the upstream BluPe Remote YAM and EmbodiedEvo repositories. Learned campaign packages, private run receipts, recordings, operator identities, production Site IDs and deployment secrets are not part of this public source snapshot.
+No simulator campaign is required by this workflow. The code does not claim that the sim-to-real gap is small or that an upstream skill will succeed on YAM. Physical outcomes must establish that.
+
+## Implementation
+
+- A public task selector backed by `upstream_skill_manifest.json`, with exact upstream source revision, per-file sizes and Git object hashes.
+- A direct YAM job API that creates a physical job without a frozen simulator artifact or simulated Test qualification.
+- A worker adapter that fetches and verifies the selected files, mounts them read-only as fresh-session knowledge, and routes actions through the existing validated BluPe YAM controller.
+- Operator-only controls for live YAM cameras, run attribution, queueing, Stop, protected run history, evidence and review.
+- Pinned BluPe Remote YAM and EmbodiedEvo source submodules. Private run records, credentials, operator identities, production Site IDs and deployment secrets are excluded from this public source.
+
+The site is publicly viewable. Running on YAM, live cameras and private run records require an approved operator account. A worker is not started by opening the website. A connected YAM-qualified worker and a ready station are prerequisites for a physical run.
 
 ## Run locally
 
@@ -28,9 +35,7 @@ npm install
 npm run dev
 ```
 
-The portable preview sign-in route is `/signin-with-chatgpt?return_to=/`. It is for local development and is excluded from production authentication.
-
-To host your own Site, copy `.openai/hosting.example.json` to `.openai/hosting.json` and fill in your own Sites project ID and bindings. Configure `SITE_OPERATOR_USER_IDS` and `WORKER_TOKEN` as runtime secrets in Sites; never put production credentials in Git or the browser bundle. Follow [worker-agent/README.md](worker-agent/README.md) for worker setup. The worker does not start automatically, and physical execution requires a connected YAM-qualified worker and normal station readiness.
+To host your own Site, copy `.openai/hosting.example.json` to `.openai/hosting.json` and fill in your own Sites project ID and bindings. Configure `SITE_OPERATOR_USER_IDS` and `WORKER_TOKEN` as runtime secrets; never put production credentials in Git or the browser bundle. Follow [worker-agent/README.md](worker-agent/README.md) for a YAM-capable worker setup.
 
 ## Checks
 
@@ -42,8 +47,8 @@ npx tsc --noEmit
 npm run build
 ```
 
-Local fixtures do not run models, simulation or robots. A successful build or API fixture does not establish physical task success, live motion or replay.
+Local checks do not submit a YAM run. They do not establish physical arm motion or task success.
 
 ## Source and licensing
 
-This repository is a public source snapshot; it omits production hosting metadata and private operational records. Upstream submodules retain their own licenses and release boundaries. No new license file is included in this snapshot.
+This repository is a public source snapshot. Upstream submodules retain their own licenses and release boundaries. No new license file is included in this snapshot.

@@ -6,6 +6,7 @@ import re
 import subprocess
 from pathlib import Path
 from datetime import datetime, timezone
+from skill_library import SKILL_LIBRARY_REVISION, SKILLS as UPSTREAM_SKILLS
 
 PINS = {'embodiedevo': '470278c478bdb5e4b6f17dde1ea0393761f230f0',
         'blupe': 'e8158b7cfcbb90b2824dfc73e632b537bdfd942c'}
@@ -60,10 +61,18 @@ def validate_job(job):
         if not re.fullmatch(r'[a-f0-9-]{36}', str(job.get(key, ''))):
             raise ValueError('Invalid job identity')
     c = job['config']
-    if c.get('task') not in TASKS or c.get('model') != 'gpt-6-astra' or c.get('effort') != 'xhigh':
+    direct_yam = job['kind'] == 'hardware' and c.get('direct_yam') is True
+    if (c.get('task') not in (UPSTREAM_SKILLS if direct_yam else TASKS)
+            or c.get('model') != 'gpt-6-astra' or c.get('effort') != 'xhigh'):
         raise ValueError('Unsupported task or agent configuration')
     if c.get('pins') != PINS:
         raise ValueError('Campaign source pins differ')
+    if direct_yam:
+        if (c.get('skill_id') != c.get('task')
+                or c.get('skill_library_revision') != SKILL_LIBRARY_REVISION):
+            raise ValueError('The direct YAM skill source or its pinned revision is unsupported')
+    elif c.get('direct_yam') is True or c.get('skill_id') is not None or c.get('skill_library_revision') is not None:
+        raise ValueError('Direct upstream skills are supported only by the direct YAM job path')
     for key, minimum, maximum in [('budget',1,100),('scenes',1,25),('seed',0,2147483647),('seconds',60,1800)]:
         if type(c.get(key)) is not int or not minimum <= c[key] <= maximum:
             raise ValueError('Invalid campaign '+key)
@@ -76,7 +85,13 @@ def validate_job(job):
                 raise ValueError('Invalid physical '+key)
         if h.get('method')!='EmbodiedEvo' or h.get('runner_name')!=runner_name or h.get('email')!=email:
             raise ValueError('The physical task attribution differs from the confirmed runner or method')
-        if not re.fullmatch(r'[a-f0-9-]{36}',str(job.get('artifact',''))):
+        if direct_yam:
+            if (h.get('source') != 'upstream_skill_library'
+                    or h.get('skill_id') != c.get('skill_id')
+                    or h.get('skill_library_revision') != SKILL_LIBRARY_REVISION
+                    or job.get('artifact') not in (None, '')):
+                raise ValueError('Direct YAM jobs must use the selected pinned upstream skill set without a simulator artifact')
+        elif not re.fullmatch(r'[a-f0-9-]{36}',str(job.get('artifact',''))):
             raise ValueError('Physical transfer requires the original frozen artifact')
     return job
 

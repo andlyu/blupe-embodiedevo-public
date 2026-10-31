@@ -24,6 +24,8 @@ def main():
     if job['kind']=='hardware':
         from yam_trial import run as run_physical
         from core import native_run_path
+        if job.get('hardware',{}).get('source')=='upstream_skill_library':
+            return run_physical(job,None,run,root)
         original=native_run_path(Path(sys.argv[1]).parent,'sim_test')
         return run_physical(job,original,run,root)
     saved=run.parent/'resolved-config.json'

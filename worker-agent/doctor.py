@@ -5,6 +5,7 @@ import os
 from pathlib import Path
 import platform
 import subprocess
+import sys
 
 from core import verify_pins
 
@@ -102,3 +103,79 @@ def inspect_runtime(root, *, model=True):
         check('operator_login', login)
     return {'ready': all(c['ok'] for c in checks), 'checks': checks,
             'physics_started': False, 'model_called': False, 'physical_execution_supported': False}
+
+
+def inspect_yam_runtime(root, *, model=True):
+    """Inspect only the CPU worker stack used by a direct physical YAM job.
+
+    This intentionally does not require Isaac Sim, RoboDojo assets, an NVIDIA
+    GPU, or the simulator virtual environment. The station is checked again
+    when a specific physical job is admitted; this diagnostic never connects
+    to the station or moves a robot.
+    """
+    root = Path(root).resolve()
+    checks = []
+
+    def check(name, fn):
+        try:
+            checks.append({'name': name, 'ok': True, 'detail': fn()})
+        except Exception as exc:
+            checks.append({'name': name, 'ok': False, 'detail': str(exc)[:300]})
+
+    def host():
+        supported = ((platform.system() == 'Linux' and platform.machine() in {'x86_64', 'AMD64'})
+                     or (platform.system() == 'Darwin' and platform.machine() in {'arm64', 'x86_64'}))
+        if not supported:
+            raise RuntimeError('The YAM worker requires Linux x86_64 or macOS with Docker')
+        if sys.version_info < (3, 11):
+            raise RuntimeError('The YAM worker requires Python 3.11 or newer')
+        return platform.platform()
+
+    def dependencies():
+        required = ['cloudpickle', 'gymnasium', 'imageio', 'imageio-ffmpeg',
+                    'mujoco', 'numpy', 'pillow', 'psutil', 'pyyaml', 'scipy',
+                    'websocket-client']
+        return {name: importlib.metadata.version(name) for name in required}
+
+    def adapter_imports():
+        entry = root / 'worker-agent/yam-runtime/bin/python'
+        if not entry.is_file() or not os.access(entry, os.X_OK):
+            raise RuntimeError('Missing executable worker-agent/yam-runtime/bin/python')
+        code = (
+            'import sys; from pathlib import Path; root=Path(sys.argv[1]); '
+            'sys.path[:0]=[str(root/"worker-agent"), '
+            'str(root/"upstream/EmbodiedEvo"), '
+            'str(root/"upstream/blupe-remote-yam/codex-runner/src")]; '
+            'import orchestrator.session_runner, yam_environment, yam_trial; '
+            'print("direct YAM imports ok")'
+        )
+        return command([sys.executable, '-c', code, str(root)], timeout=60)
+
+    def agent_image():
+        daemon = command(['docker', 'version', '--format', '{{.Server.Version}}'])
+        image = command(['docker', 'image', 'inspect', 'embodiedevo-agent:latest', '--format', '{{.Id}}'])
+        return {'docker_server': daemon, 'agent_image': image}
+
+    def login():
+        home = Path(os.environ.get('EMBODIEDEVO_CODEX_HOME', str(Path.home() / '.codex'))).expanduser()
+        if not (home / 'config.toml').is_file() or not (home / 'auth.json').is_file():
+            raise RuntimeError('Complete operator login on this host with deploy/login.sh')
+        command(['docker', 'run', '--rm', '--network', 'none', '-e', 'CODEX_HOME=/auth',
+                 '-v', str(home.resolve()) + ':/auth:ro', 'embodiedevo-agent:latest', 'codex', 'login', 'status'])
+        return 'Stored login recognized; live model access requires a real bounded YAM job'
+
+    check('pinned_method_sources', lambda: verify_pins(root) or 'Match website pins')
+    check('host', host)
+    check('yam_dependencies', dependencies)
+    check('direct_yam_imports', adapter_imports)
+    check('agent_image', agent_image)
+    if model:
+        check('operator_login', login)
+    ready = all(c['ok'] for c in checks)
+    runtime_names = {'pinned_method_sources', 'host', 'yam_dependencies', 'direct_yam_imports', 'agent_image'}
+    runtime_ready = all(c['ok'] for c in checks if c['name'] in runtime_names)
+    return {'ready': ready, 'checks': checks,
+            'physics_started': False, 'model_called': False,
+            'robot_motion_started': False,
+            'physical_execution_supported': runtime_ready,
+            'station_checked': False}

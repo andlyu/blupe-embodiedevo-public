@@ -13,7 +13,7 @@ from urllib.request import Request, build_opener, ProxyHandler, HTTPRedirectHand
 from urllib.parse import urlsplit
 
 from core import PINS, validate_job, verify_pins, frozen_files, outcomes, native_run_path, latest_observation
-from doctor import inspect_runtime
+from doctor import inspect_runtime, inspect_yam_runtime
 
 class NoRedirect(HTTPRedirectHandler):
     def redirect_request(self,*_):
@@ -42,13 +42,21 @@ def serve_job(client,job,root,store):
     validate_job(job)
     verify_pins(root)
     directory=store/job['campaign'];directory.mkdir(parents=True,exist_ok=True)
-    original=native_run_path(directory,job['kind'])
-    run=original/'physical'/job['id'] if job['kind']=='hardware' else original
+    direct_skill=job['kind']=='hardware' and job.get('hardware',{}).get('source')=='upstream_skill_library'
+    original=None if direct_skill else native_run_path(directory,job['kind'])
+    run=directory/'direct-yam'/job['id'] if direct_skill else original/'physical'/job['id'] if job['kind']=='hardware' else original
     jobfile=directory/(job['id']+'.json');jobfile.write_text(json.dumps(job))
     logpath=directory/(job['id']+'.log')
     cancelled=False;last_frame=None
     with logpath.open('wb') as log:
-        python=str(root/'upstream/EmbodiedEvo/.venv-robodojo/bin/python') if job['kind']=='hardware' else sys.executable
+        if direct_skill:
+            # The direct physical method uses the worker's CPU runtime. Its
+            # simulator interpreter is a tiny YAM bridge entrypoint, not Isaac.
+            python=sys.executable
+        elif job['kind']=='hardware':
+            python=str(root/'upstream/EmbodiedEvo/.venv-robodojo/bin/python')
+        else:
+            python=sys.executable
         child=subprocess.Popen([python,str(root/'worker-agent/execute.py'),str(jobfile),str(run)],
                                cwd=root,stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
         started=time.monotonic()
@@ -88,6 +96,8 @@ def serve_job(client,job,root,store):
     if job['kind']=='hardware':
         result_path=run/'physical-result.json'
         result=json.loads(result_path.read_text()) if result_path.exists() else {}
+        if result.get('skill_source'):
+            report['skill_source']=result['skill_source']
         progress_path=run/'hardware-progress.json'
         if progress_path.exists():report['progress']=json.loads(progress_path.read_text())
         summary='Physical transfer attempt retained. Task outcome requires evidence review.' if result.get('valid') else str(result.get('reason') or 'Physical process ended before valid completion.')
@@ -127,13 +137,16 @@ def main():
     parser.add_argument('--publish-evidence',metavar='CAMPAIGN',help='Publish retained native evidence without running models or hardware')
     parser.add_argument('--check',action='store_true',help='Inspect real prerequisites without starting physics/models/jobs')
     parser.add_argument('--runtime-only',action='store_true',help='With --check, inspect installed runtime before operator login')
+    parser.add_argument('--yam-only',action='store_true',help='With --check, inspect direct physical YAM prerequisites without simulator/GPU checks')
     parser.add_argument('--check-site',action='store_true',help='Authenticate to the site without heartbeat, job claim or execution')
     args=parser.parse_args();root=Path(__file__).resolve().parents[1];verify_pins(root)
     if args.check:
-        result=inspect_runtime(root,model=not args.runtime_only)
+        yam_only=args.yam_only or os.environ.get('EMBODIEDEVO_ENABLE_YAM')=='1'
+        result=(inspect_yam_runtime(root,model=not args.runtime_only) if yam_only
+                else inspect_runtime(root,model=not args.runtime_only))
         print(json.dumps(result,indent=2));return 0 if result['ready'] else 1
-    if args.runtime_only:
-        parser.error('--runtime-only requires --check')
+    if args.runtime_only or args.yam_only:
+        parser.error('--runtime-only and --yam-only require --check')
     client=Client(os.environ['SITE_ORIGIN'],os.environ['WORKER_TOKEN'],os.environ.get('WORKER_ID','sim-worker-1'),os.environ.get('SITE_ACCESS_TOKEN',''))
     if args.publish_evidence:
         import re
@@ -143,15 +156,20 @@ def main():
         for path in sorted(directory.glob('*.json')):
             job=json.loads(path.read_text())
             if job.get('id')!=path.stem or job.get('kind') not in {'practice','sim_test','hardware'}:continue
-            validate_job(job);run=native_run_path(directory,'sim_test')
-            if job['kind']=='hardware':run=run/'physical'/job['id']
+            validate_job(job)
+            if job['kind']=='hardware' and job.get('hardware',{}).get('source')=='upstream_skill_library':
+                run=directory/'direct-yam'/job['id']
+            else:
+                run=native_run_path(directory,'sim_test')
+                if job['kind']=='hardware':run=run/'physical'/job['id']
             publish_evidence(client,job,run)
         print(json.dumps({'published':True,'startsExecution':False}));return 0
     if args.check_site:
         result=client.post('probe',{})
         if result.get('pins')!=PINS:raise ValueError('Website source pins differ')
         print(json.dumps(result));return 0
-    readiness=inspect_runtime(root)
+    readiness=(inspect_yam_runtime(root) if os.environ.get('EMBODIEDEVO_ENABLE_YAM')=='1'
+                else inspect_runtime(root))
     if not readiness['ready']:
         print(json.dumps(readiness,indent=2),file=sys.stderr)
         return 1

@@ -10,7 +10,7 @@ if [[ ! -e /etc/blupe-embodiedevo/worker.env ]]; then
 fi
 sudo tee /etc/systemd/system/blupe-embodiedevo-worker.service >/dev/null <<EOF
 [Unit]
-Description=BluPe EmbodiedEvo simulation worker
+Description=BluPe EmbodiedEvo YAM worker
 After=network-online.target docker.service
 Wants=network-online.target
 Requires=docker.service
@@ -20,9 +20,7 @@ User=$service_user
 SupplementaryGroups=docker
 WorkingDirectory=$service_root
 EnvironmentFile=/etc/blupe-embodiedevo/worker.env
-Environment=CUDA_HOME=/usr/local/cuda-12.8
-Environment=PATH=/usr/local/cuda-12.8/bin:/usr/local/bin:/usr/bin:/bin
-Environment=LD_LIBRARY_PATH=/usr/local/cuda-12.8/lib64
+Environment=PATH=/usr/local/bin:/usr/bin:/bin
 ExecStart=$service_root/.venv-worker/bin/python $service_root/worker-agent/run.py
 Restart=on-failure
 RestartSec=15
