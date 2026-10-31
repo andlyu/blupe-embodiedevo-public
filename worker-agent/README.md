@@ -9,7 +9,7 @@ This worker runs a fresh EmbodiedEvo coding session on BluPe Remote YAM using a 
 3. Run `bash worker-agent/deploy/login.sh` and complete your own model-account login on that host. Credentials stay on the worker and are never copied into the repository or website.
 4. Run `.venv-worker/bin/python worker-agent/run.py --check --yam-only` to inspect pins, dependencies, Docker image, and login without contacting YAM, claiming work, or moving a robot. Add `--runtime-only` to skip the login check. `--check-site` authenticates to the website without a heartbeat, job claim, or execution.
 5. Configure a private random secret of at least 32 characters as `WORKER_TOKEN` in both the Site server environment and worker environment. Set the dispatch-provided `SITE_ACCESS_TOKEN` on the worker if the hosting ingress requires it. Keep credentials out of Git and shell history.
-6. Set `SITE_ORIGIN`, a stable `WORKER_ID`, private persistent `RUN_STORE`, `EMBODIEDEVO_CODEX_HOME`, and `EMBODIEDEVO_ENABLE_YAM=1` in the worker environment. On Linux, start the installed service only after the operator confirms the station is clear and the Site is configured for that worker. On macOS, use `bash worker-agent/deploy/run-local-yam.sh /path/to/worker.env` and keep that terminal open while running.
+6. Set `SITE_ORIGIN`, a stable `WORKER_ID`, private persistent `RUN_STORE`, `EMBODIEDEVO_CODEX_HOME`, and `EMBODIEDEVO_ENABLE_YAM=1` in the worker environment. On Linux, start the installed service after the station is clear and the Site is configured for public demo runs. On macOS, use `bash worker-agent/deploy/run-local-yam.sh /path/to/worker.env` and keep that terminal open while running.
 
 Worker startup validates pinned sources and the direct YAM runtime before its first heartbeat or claim. Direct execution needs CPU compute, Docker, and network access to the Site, model service, and YAM session API; it does not need an NVIDIA GPU or a simulation campaign. Opening the Site alone does not start compute. The physical queue checks station freshness, calibration, feedback, and safety before admission.
 
@@ -23,7 +23,7 @@ The normal BluPe `RunnerController` remains responsible for admission, homing, l
 
 ## Evidence and review
 
-The worker retains the selected skill revision and verified file hashes, task/configuration, job log, and controller trace in its private run store. A live recorder captures top and both wrist cameras at 2 fps from queueing through cleanup, encodes them as MP4, and sends them to the Site's protected per-run history. The worker requests Stop if camera freshness is lost. Run attribution is submitted through the confirmed YAM session API flow. Only approved operators can see run history and footage.
+The worker retains the selected skill revision and verified file hashes, task/configuration, job log, and controller trace in its private run store. A live recorder captures top and both wrist cameras at 2 fps from queueing through cleanup, encodes them as MP4, and publishes them to the public Site history. The worker requests Stop if camera freshness is lost. Run attribution is submitted through the runner-confirmed YAM session API flow. Runner email is sent to YAM but redacted from public results; run history, names, outcomes and recordings are public.
 
 Task success remains unknown until an operator reviews the physical scene. Failed, invalid, and interrupted attempts remain recorded. Local checks do not establish a successful physical task.
 

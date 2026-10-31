@@ -37,14 +37,11 @@ def expect(value, message):
 
 
 started = time.monotonic()
-with opener.open(ORIGIN + '/signin-with-chatgpt?return_to=/', timeout=15) as response:
-    response.read()  # Establish the Sites local-preview identity cookie.
-
-status, value = call('/api/bootstrap')
-expect(status == 200 and value.get('user') is True,
-       'local preview sign-in must establish an authenticated identity')
-expect(value.get('operatorAllowed') is False,
-       'the synthetic local Sites identity must not have real YAM operator access')
+status, value = call('/api/bootstrap', signed_in=False)
+expect(status == 200 and value.get('user') is False,
+       'the public demo bootstrap must work without signing in')
+expect(value.get('operatorAllowed') is True,
+       'anonymous visitors can open the public YAM demo controls')
 
 # The direct-only workflow must reject both legacy simulator entry points.
 status, _ = call('/api/campaigns', {}, signed_in=False)
@@ -52,21 +49,19 @@ expect(status == 410, 'simulator campaign creation is disabled')
 status, _ = call('/api/jobs', {}, signed_in=False)
 expect(status == 410, 'simulator campaign jobs are disabled')
 
-# No identity or physical work is submitted by this check.
+# No identity or physical work is submitted by this check. Invalid requests
+# fail before station readiness is queried or a YAM job is created.
 status, _ = call('/api/direct-yam', {'skill_id': 'not-a-pinned-skill',
                                      'task': 'fixture task'}, signed_in=False)
-expect(status == 401, 'direct YAM requires an authenticated operator')
-status, value = call('/api/direct-yam', {'skill_id': 'not-a-pinned-skill',
-                                          'task': 'fixture task'})
-expect(status in (403, 503), 'the local account is not configured for YAM operator access')
+expect(status == 400, 'public direct YAM rejects skills absent from the pinned library')
 
 base = {'skill_id': 'stack_blocks', 'task': 'Stack the blue cube on the orange cube.',
         'hardware': {'robot': 'yam-1', 'seconds': 600, 'budget': 100,
                      'runner_name': 'Local API fixture',
                      'email': 'fixture@example.invalid',
                      'identity_confirmed': False}}
-status, value = call('/api/direct-yam', base)
-expect(status in (403, 503), 'the local account cannot submit physical identity')
+status, value = call('/api/direct-yam', base, signed_in=False)
+expect(status == 400, 'public direct YAM still requires confirmed runner identity')
 
 status, value = call('/api/worker/probe', {'worker': 'local-api-probe'}, token=TOKEN)
 expect(status in (401, 503),
