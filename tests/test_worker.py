@@ -4,7 +4,9 @@ import importlib.util
 import json
 import os
 from pathlib import Path
+import socket
 import subprocess
+import threading
 import tempfile
 import unittest
 import sys
@@ -16,7 +18,11 @@ spec=importlib.util.spec_from_file_location('core',Path(__file__).parents[1]/'wo
 core=importlib.util.module_from_spec(spec);spec.loader.exec_module(core)
 import yam_trial
 import evidence
-from yam_trial import AttributedSessionAPI,LiveCameraRecorder
+from yam_trial import (
+ AttributedSessionAPI,LiveCameraRecorder,SessionSocketBridge,
+ adapt_agent_command_for_session_bridge,enable_docker_session_bridge_client,
+ zero_execution_failure,
+)
 class WorkerTests(unittest.TestCase):
  def test_observations_never_cross_practice_and_test_phases(self):
   with tempfile.TemporaryDirectory() as d:
@@ -143,6 +149,75 @@ class WorkerTests(unittest.TestCase):
    '-m','orchestrator.session','--help'],env=env,text=True,capture_output=True,timeout=20)
   self.assertEqual(result.returncode,0,result.stderr)
   self.assertIn('Host-owned persistent simulator',result.stdout)
+ def test_session_bridge_client_adapter_is_scoped_to_copied_upstream_cli(self):
+  upstream=ROOT/'upstream/EmbodiedEvo/tasks/RoboDojo/Workspace/scripts/env.py'
+  with tempfile.TemporaryDirectory() as directory:
+   path=Path(directory)/'env.py';path.write_text(upstream.read_text())
+   self.assertTrue(enable_docker_session_bridge_client(path))
+   self.assertFalse(enable_docker_session_bridge_client(path))
+   compile(path.read_text(),str(path),'exec')
+   patched=path.read_text()
+   self.assertIn('host.docker.internal',patched)
+   self.assertIn('EMBODIEDEVO_SESSION_BRIDGE_TOKEN',patched)
+   self.assertIn('socket.AF_UNIX',patched)
+ def test_session_socket_bridge_authenticates_and_forwards_one_json_request(self):
+  with tempfile.TemporaryDirectory() as directory:
+   socket_path=str(Path(directory)/'session.sock')
+   native=socket.socket(socket.AF_UNIX,socket.SOCK_STREAM)
+   native.bind(socket_path);native.listen(1)
+   bridge=SessionSocketBridge(socket_path)
+   observed={}
+   request=(json.dumps({'op':'status'})+chr(10)).encode()
+   response=(json.dumps({'ok':True,'execution':0})+chr(10)).encode()
+   def session_server():
+    client,_=native.accept()
+    with client:
+     observed['request']=client.makefile('rb').readline(1024)
+     client.sendall(response)
+   thread=threading.Thread(target=session_server,daemon=True);thread.start()
+   try:
+    with socket.create_connection(('127.0.0.1',bridge.port),timeout=3) as client:
+     stream=client.makefile('rwb')
+     stream.write(('AUTH '+bridge.token+chr(10)).encode());stream.flush()
+     self.assertEqual(stream.readline(128),b'OK'+bytes((10,)))
+     stream.write(request);stream.flush()
+     self.assertEqual(json.loads(stream.readline(1024)),{'ok':True,'execution':0})
+    thread.join(3)
+    self.assertEqual(observed['request'],request)
+    self.assertEqual(bridge.snapshot()['requests_forwarded'],1)
+    self.assertEqual(bridge.snapshot()['responses_received'],1)
+   finally:
+    bridge.close();native.close()
+ def test_session_socket_bridge_rejects_untrusted_clients(self):
+  with tempfile.TemporaryDirectory() as directory:
+   bridge=SessionSocketBridge(str(Path(directory)/'missing.sock'))
+   try:
+    with socket.create_connection(('127.0.0.1',bridge.port),timeout=3) as client:
+     client.sendall(b'AUTH wrong'+bytes((10,)))
+     self.assertEqual(client.makefile('rb').readline(128),b'DENIED'+bytes((10,)))
+    self.assertEqual(bridge.snapshot()['rejected'],1)
+    self.assertEqual(bridge.snapshot()['requests_forwarded'],0)
+   finally:bridge.close()
+ def test_session_bridge_rewrites_only_the_session_mount_and_address(self):
+  class Bridge:
+   address='tcp://host.docker.internal:42123'
+   token='one-run-token'
+  argv=['docker','run','--mount','type=bind,src=/tmp/session,dst=/run/embodiedevo,readonly',
+        '--mount','type=bind,src=/tmp/home,dst=/home/agent',
+        '--env','EMBODIEDEVO_SOCKET=/run/embodiedevo/session.sock','embodiedevo-agent:latest']
+  adapted=adapt_agent_command_for_session_bridge(argv,Bridge())
+  self.assertNotIn('/run/embodiedevo',str(adapted))
+  self.assertIn('type=bind,src=/tmp/home,dst=/home/agent',adapted)
+  self.assertIn('EMBODIEDEVO_SOCKET=tcp://host.docker.internal:42123',adapted)
+  self.assertIn('EMBODIEDEVO_SESSION_BRIDGE_TOKEN=one-run-token',adapted)
+  with self.assertRaisesRegex(RuntimeError,'Pinned upstream Docker command changed'):
+   adapt_agent_command_for_session_bridge(['docker','run','image'],Bridge())
+ def test_zero_program_session_is_infrastructure_failure_but_task_failure_is_valid(self):
+  self.assertEqual(zero_execution_failure({'valid':True,'executions_used':0},{'requests_forwarded':0}),
+                   'agent_transport_unavailable')
+  self.assertEqual(zero_execution_failure({'valid':True,'executions_used':0},{'requests_forwarded':2}),
+                   'agent_no_program_submitted')
+  self.assertIsNone(zero_execution_failure({'valid':True,'executions_used':1},{'requests_forwarded':1}))
  def test_physical_evidence_uses_timestamp_prefixed_session_run(self):
   with tempfile.TemporaryDirectory() as directory:
    root=Path(directory);native=root/'202610312121_session';native.mkdir()
