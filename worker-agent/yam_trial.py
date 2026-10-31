@@ -1,9 +1,12 @@
 """One isolated physical transfer trial using the real pinned code-session host."""
 from dataclasses import replace
 import json
+import hmac
 import os
 from pathlib import Path
 from queue import Queue,Empty
+import secrets
+import socket
 import shutil
 import subprocess
 import sys
@@ -17,6 +20,158 @@ from skill_library import download_skill_set,skill_manifest
 
 ORIGIN='https://yam-session-api.n5hthc3gj4cqy.us-east-1.cs.amazonlightsail.com'
 ROBOT='yam-1'
+SESSION_MESSAGE_LIMIT=16*1024*1024
+
+def _read_session_line(connection,limit):
+    data=bytearray()
+    while len(data)<limit:
+        chunk=connection.recv(min(65536,limit-len(data)))
+        if not chunk:return None
+        newline=chunk.find(bytes((10,)))
+        if newline>=0:
+            if newline!=len(chunk)-1:return None
+            data.extend(chunk[:newline+1]);return bytes(data)
+        data.extend(chunk)
+    return None
+
+class SessionSocketBridge:
+    """Carry the upstream one-request JSON protocol through Docker Desktop TCP.
+
+    Docker Desktop on macOS does not forward a host Unix socket through a bind
+    mount. Keep the real session socket on the worker and expose only a
+    per-run, token-authenticated loopback TCP relay to the isolated agent.
+    """
+    def __init__(self,socket_path):
+        self.socket_path=str(socket_path)
+        self.token=secrets.token_urlsafe(32)
+        self.listener=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+        self.listener.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1)
+        self.listener.bind(('127.0.0.1',0))
+        self.listener.listen(8)
+        self.listener.settimeout(.5)
+        self.port=self.listener.getsockname()[1]
+        self.stop_event=threading.Event()
+        self._lock=threading.Lock()
+        self._handlers=set()
+        self._stats={'connections':0,'authenticated':0,'requests_forwarded':0,
+                     'responses_received':0,'rejected':0,'errors':0}
+        self._thread=threading.Thread(target=self._serve,name='yam-session-socket-bridge',daemon=True)
+        self._thread.start()
+    @property
+    def address(self):return f'tcp://host.docker.internal:{self.port}'
+    def _count(self,key):
+        with self._lock:self._stats[key]+=1
+    def snapshot(self):
+        with self._lock:return dict(self._stats)
+    def _serve(self):
+        while not self.stop_event.is_set():
+            try:client,_=self.listener.accept()
+            except TimeoutError:continue
+            except OSError:
+                if self.stop_event.is_set():return
+                self._count('errors');continue
+            self._count('connections')
+            thread=threading.Thread(target=self._handle,args=(client,),name='yam-session-bridge-client',daemon=True)
+            with self._lock:self._handlers.add(thread)
+            thread.start()
+    def _handle(self,client):
+        try:
+            with client:
+                client.settimeout(10)
+                auth=_read_session_line(client,128)
+                expected=b'AUTH '+self.token.encode('ascii')+bytes((10,))
+                if auth is None or not hmac.compare_digest(auth,expected):
+                    self._count('rejected')
+                    try:client.sendall(b'DENIED'+bytes((10,)))
+                    except OSError:pass
+                    return
+                self._count('authenticated')
+                client.sendall(b'OK'+bytes((10,)))
+                request=_read_session_line(client,SESSION_MESSAGE_LIMIT+1)
+                if request is None:
+                    self._count('errors');return
+                client.settimeout(650)
+                with socket.socket(socket.AF_UNIX,socket.SOCK_STREAM) as upstream:
+                    upstream.settimeout(650)
+                    upstream.connect(self.socket_path)
+                    upstream.sendall(request)
+                    self._count('requests_forwarded')
+                    response=_read_session_line(upstream,SESSION_MESSAGE_LIMIT+1)
+                    if response is None:
+                        self._count('errors');return
+                    client.sendall(response)
+                    self._count('responses_received')
+        except (OSError,ValueError):self._count('errors')
+        finally:
+            with self._lock:self._handlers.discard(threading.current_thread())
+    def close(self):
+        self.stop_event.set()
+        try:self.listener.close()
+        except OSError:pass
+        self._thread.join(timeout=2)
+        with self._lock:handlers=list(self._handlers)
+        for thread in handlers:thread.join(timeout=.2)
+        self.token=''
+        return self.snapshot()
+
+def enable_docker_session_bridge_client(path):
+    path=Path(path);source=path.read_text()
+    if 'def _request_over_docker_bridge(' in source:return False
+    newline=chr(10)
+    declaration=newline+'def request(payload, *, socket_path=None):'+newline
+    marker='    # Never retry a request: a broken connection does not imply rollback.'+newline
+    if declaration not in source or marker not in source:
+        raise ValueError('Pinned upstream session CLI changed; cannot safely add the Docker transport adapter')
+    helper_lines=[
+        'def _request_over_docker_bridge(address,payload):',
+        '    from urllib.parse import urlsplit',
+        '    parsed=urlsplit(address)',
+        '    try:port=parsed.port',
+        '    except ValueError as exc:raise ValueError("Invalid Docker session bridge address") from exc',
+        '    if (parsed.scheme!="tcp" or parsed.hostname!="host.docker.internal" or not port',
+        '            or parsed.username or parsed.password or parsed.path not in ("","/")',
+        '            or parsed.query or parsed.fragment):',
+        '        raise ValueError("Invalid Docker session bridge address")',
+        '    token=os.environ.get("EMBODIEDEVO_SESSION_BRIDGE_TOKEN")',
+        '    if not token:raise RuntimeError("Docker session bridge token is missing")',
+        '    with socket.create_connection((parsed.hostname,port),timeout=10) as connection:',
+        '        connection.settimeout(650)',
+        '        with connection.makefile("rwb") as stream:',
+        '            stream.write(("AUTH "+token+chr(10)).encode());stream.flush()',
+        '            if stream.readline(128)!=b"OK"+bytes((10,)):raise PermissionError("Docker session bridge authentication failed")',
+        '            send(stream,payload)',
+        '            return receive(stream)',
+    ]
+    helper=newline.join(helper_lines)+newline
+    source=source.replace(declaration,newline+helper+declaration,1)
+    source=source.replace(marker,'    if address.startswith("tcp://"):'+newline+
+        '        return _request_over_docker_bridge(address,payload)'+newline+marker,1)
+    path.write_text(source)
+    return True
+
+def adapt_agent_command_for_session_bridge(argv,bridge):
+    argv=list(argv)
+    removed_mount=False
+    for index,value in enumerate(argv[:-1]):
+        if value=='--mount' and 'dst=/run/embodiedevo,readonly' in argv[index+1]:
+            del argv[index:index+2]
+            removed_mount=True
+            break
+    socket_environment='EMBODIEDEVO_SOCKET=/run/embodiedevo/session.sock'
+    replaced_environment=False
+    for index,value in enumerate(argv[:-1]):
+        if value=='--env' and argv[index+1]==socket_environment:
+            argv[index+1]='EMBODIEDEVO_SOCKET='+bridge.address
+            argv[index:index]=['--env','EMBODIEDEVO_SESSION_BRIDGE_TOKEN='+bridge.token]
+            replaced_environment=True
+            break
+    if not removed_mount or not replaced_environment:
+        raise RuntimeError('Pinned upstream Docker command changed; cannot safely install the YAM session bridge')
+    return argv
+
+def zero_execution_failure(native,transport):
+    if native.get('valid') is not True or native.get('executions_used',0)>0:return None
+    return 'agent_transport_unavailable' if transport.get('requests_forwarded',0)==0 else 'agent_no_program_submitted'
 
 def physical_yam_session_env(_gpu=None,_backend=None):
     """Use the host's native MuJoCo runtime for the physical YAM adapter.
@@ -153,6 +308,7 @@ def run(job,original,trial,root):
                      submission_timeout_sec=min(120,h['seconds']),feedback_fps=10))
     session_runner.prepare_inputs(cfg,trial)
     inputs=trial/'inputs'
+    enable_docker_session_bridge_client(inputs/'scripts/env.py')
     (inputs/'primitives/primitives.md').write_text((root/'worker-agent/yam/primitives.md').read_text())
     with (inputs/'test.md').open('a') as stream:
         stream.write('\n\n# Physical YAM execution\nRead primitives/primitives.md. This is real YAM hardware, not ARX simulation. Use measured YAM frames and preserve frozen knowledge. Success is reviewed from physical evidence, not your claim. Never request reset or replay an action.\n')
@@ -191,6 +347,18 @@ def run(job,original,trial,root):
     recorder=LiveCameraRecorder(ORIGIN,ROBOT,trial/'live-camera-frames',fps=2)
     previous=session_runner.run_replay
     previous_sim_env=session_runner.sim_env
+    previous_agent_command=session_runner.agent_command
+    bridge_holder={}
+    def agent_command_with_session_bridge(cfg,run,socket_dir,phase):
+        name,argv=previous_agent_command(cfg,run,socket_dir,phase)
+        bridge=SessionSocketBridge(socket_dir/'session.sock')
+        bridge_holder['bridge']=bridge
+        try:argv=adapt_agent_command_for_session_bridge(argv,bridge)
+        except BaseException:
+            bridge.close()
+            bridge_holder.pop('bridge',None)
+            raise
+        return name,argv
     stage=trial/(time.strftime('%Y%m%d%H%M')+'_session')
     initial=time.time();native=None
     def progress():
@@ -242,15 +410,20 @@ def run(job,original,trial,root):
         os.environ.pop('EMBODIEDEVO_ROBODOJO_RUNTIME_PROFILE',None)
         session_runner.run_replay=no_physical_replay
         session_runner.sim_env=physical_yam_session_env
+        session_runner.agent_command=agent_command_with_session_bridge
         native=session_runner.run_episode(cfg,stage,trial,phase='test',seed=0,
                     seconds=available,harness=trial/'frozen_harness',gpu=None)
         if hashes(trial/'frozen_harness')!=source or (original is not None and hashes(original/'frozen_harness')!=source):
             raise ValueError('Frozen knowledge changed during physical transfer')
         status=controller.status()
-        valid=native.get('valid') is True and not policy._failure and not status.get('error') and not status.get('safety_error')
+        bridge=bridge_holder.get('bridge')
+        transport=bridge.snapshot() if bridge else {}
+        no_execution=zero_execution_failure(native,transport)
+        valid=native.get('valid') is True and not no_execution and not policy._failure and not status.get('error') and not status.get('safety_error')
         outcome.update(status='complete' if valid else 'failed',valid=valid,success=None,
                        executions=native.get('executions_used'),native_steps=native.get('native_steps_used'),
-                       reason=native.get('failure') or policy._failure or status.get('error'),
+                       reason=native.get('failure') or policy._failure or status.get('error') or no_execution,
+                       session_transport=transport,
                        evaluator='operator_review',physical_replay=False)
         return 0 if valid else 1
     except BaseException as exc:
@@ -260,6 +433,9 @@ def run(job,original,trial,root):
     finally:
         session_runner.run_replay=previous
         session_runner.sim_env=previous_sim_env
+        session_runner.agent_command=previous_agent_command
+        bridge=bridge_holder.get('bridge')
+        if bridge:outcome['session_transport']=bridge.close()
         finished.set()
         try:controller.stop(reason='policy_complete' if outcome.get('valid') else 'runner_disconnected')
         finally:
